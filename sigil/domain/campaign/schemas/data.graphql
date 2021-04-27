@@ -1,4 +1,4 @@
-type Campaign {
+type Campaign implements Descriptable {
     uuid: ID!
     name: String!
     description: String
@@ -6,7 +6,7 @@ type Campaign {
     playerCharacters: [PlayerCharacter!]!
 }
 
-type Party {
+type Party implements Descriptable {
     uuid: ID!
     name: String!
     description: String
@@ -14,9 +14,11 @@ type Party {
     playerCharacters: [PlayerCharacter!]!
 }
 
-type PlayerCharacter {
+type PlayerCharacter implements Descriptable {
     uuid: ID!
     name: String!
+    description: String
+    player: String
     uri: HTTPUrl
     campaign: Campaign!
     party: Party

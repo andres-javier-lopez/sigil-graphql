@@ -22,6 +22,9 @@ enum CoinType {
 
 extend type Campaign {
     hubs: [Hub!]!
+    npcs: [NPC!]!
+    quests: [Quest!]!
+    landmarks: [Landmark!]!
 }
 
 extend type Party {
@@ -32,7 +35,7 @@ extend type PlayerCharacter {
     relationships: [Relationship!]!
 }
 
-type Hub {
+type Hub implements Descriptable {
     uuid: ID!
     name: String!
     description: String
@@ -42,10 +45,11 @@ type Hub {
     shops: [Shop!]!
 }
 
-type NPC {
+type NPC implements Descriptable {
     uuid: ID!
     name: String!
     description: String
+    campaign: Campaign!
     statsBlock: HTTPUrl
     location: [LocationInfo!]!
     ownedShop: Shop
@@ -69,10 +73,11 @@ type Relationship {
     notes: String
 }
 
-type Landmark {
+type Landmark implements Descriptable {
     uuid: ID!
     name: String!
     description: String
+    campaign: Campaign!
     belongsTo: Hub!
     people: [NPCInfo!]!
     quests: [QuestInfo!]!
@@ -83,10 +88,11 @@ type LandmarkInfo {
     notes: String
 }
 
-type Quest {
+type Quest implements Descriptable {
     uuid: ID!
     name: String!
     description: String!
+    campaign: Campaign!
     startedBy: [QuestStarter!]!
     rewards: [TreasureInfo!]!
     followedBy: [QuestInfo!]!
@@ -99,7 +105,7 @@ type QuestInfo {
     notes: String
 }
 
-type Shop {
+type Shop implements Descriptable {
     uuid: ID!
     name: String!
     description: String
@@ -108,7 +114,7 @@ type Shop {
     sells: [Item!]!
 }
 
-type Item {
+type Item implements Descriptable {
     uuid: ID!
     name: String!
     description: String
@@ -124,7 +130,7 @@ type ItemInfo {
     notes: String
 }
 
-type Treasure {
+type Treasure implements Descriptable {
     uuid: ID!
     name: String!
     description: String!

@@ -1,1 +1,6 @@
 scalar HTTPUrl
+
+interface Descriptable {
+    name: String!
+    description: String
+}
