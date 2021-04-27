@@ -3,6 +3,7 @@ from os import path
 from ariadne import load_schema_from_path, make_executable_schema
 
 from .resolvers import query
+from sigil.domain import campaign
 
 
 basepath = path.dirname(__file__)
@@ -14,6 +15,7 @@ type_defs = load_schema_from_path(schemapath)
 schema = make_executable_schema(
     [
         type_defs,
+        campaign.type_defs,
     ],
     query,
 )

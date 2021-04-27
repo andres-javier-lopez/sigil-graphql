@@ -1,0 +1,23 @@
+type Campaign {
+    uuid: UUID!
+    name: String!
+    description: String
+    parties: [Party!]!
+    playerCharacters: [PlayerCharacter!]!
+}
+
+type Party {
+    id: Int!
+    name: String!
+    description: String
+    campaign: Campaign!
+    playerCharacters: [PlayerCharacter!]!
+}
+
+type PlayerCharacter {
+    id: Int!
+    name: String!
+    uri: HTTPUrl
+    campaign: Campaign!
+    party: Party
+}
