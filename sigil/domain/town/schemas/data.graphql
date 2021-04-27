@@ -1,0 +1,144 @@
+union Character = PlayerCharacter | NPC
+
+union Location = Hub | Landmark
+
+union Reference = NPCInfo | LandmarkInfo | ItemInfo
+
+union QuestStarter = NPCInfo | ItemInfo | QuestInfo | LandmarkInfo 
+
+enum RelationshipStatus {
+    FRIENDLY
+    NEUTRAL
+    HOSTILE
+}
+
+enum CoinType {
+    COPPER
+    SILVER
+    GOLD
+    ELECTRUM
+    PLATINUM
+}
+
+extend type Campaign {
+    hubs: [Hub!]!
+}
+
+extend type Party {
+    quests: [QuestInfo!]!
+}
+
+extend type PlayerCharacter {
+    relationships: [Relationship!]!
+}
+
+type Hub {
+    uuid: ID!
+    name: String!
+    description: String
+    campaign: Campaign
+    landmarks: [Landmark!]!
+    npcs: [NPCInfo!]!
+    shops: [Shop!]!
+}
+
+type NPC {
+    uuid: ID!
+    name: String!
+    description: String
+    statsBlock: HTTPUrl
+    location: [LocationInfo!]!
+    ownedShop: Shop
+    quests: [QuestInfo!]!
+    relationships: [Relationship!]! 
+}
+
+type NPCInfo {
+    character: NPC!
+    notes: String
+}
+
+type LocationInfo {
+    location: Location!
+    notes: String
+}
+
+type Relationship {
+    character: Character!
+    status: RelationshipStatus!
+    notes: String
+}
+
+type Landmark {
+    uuid: ID!
+    name: String!
+    description: String
+    belongsTo: Hub!
+    people: [NPCInfo!]!
+    quests: [QuestInfo!]!
+}
+
+type LandmarkInfo {
+    landmark: Landmark!
+    notes: String
+}
+
+type Quest {
+    uuid: ID!
+    name: String!
+    description: String!
+    startedBy: [QuestStarter!]!
+    rewards: [TreasureInfo!]!
+    followedBy: [QuestInfo!]!
+    handledBy: [Party!]!
+    related: [Reference!]!
+}
+
+type QuestInfo {
+    quest: Quest!
+    notes: String
+}
+
+type Shop {
+    uuid: ID!
+    name: String!
+    description: String
+    belongsTo: Hub!
+    owner: NPC!
+    sells: [Item!]!
+}
+
+type Item {
+    uuid: ID!
+    name: String!
+    description: String
+    uri: HTTPUrl
+    basePrice: CoinValue!
+    quests: [QuestInfo!]!
+    foundIn: [Treasure!]!
+    buyIn: [Shop!]!
+}
+
+type ItemInfo {
+    item: Item!
+    notes: String
+}
+
+type Treasure {
+    uuid: ID!
+    name: String!
+    description: String!
+    coins: [CoinValue!]!
+    items: [Item!]!
+}
+
+type TreasureInfo {
+    treasure: Treasure!
+    notes: String
+}
+
+type CoinValue {
+    amount: Int!
+    type: CoinType!
+    goldValue: Float!
+}

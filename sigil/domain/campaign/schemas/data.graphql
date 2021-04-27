@@ -1,5 +1,5 @@
 type Campaign {
-    uuid: UUID!
+    uuid: ID!
     name: String!
     description: String
     parties: [Party!]!
@@ -7,7 +7,7 @@ type Campaign {
 }
 
 type Party {
-    id: Int!
+    uuid: ID!
     name: String!
     description: String
     campaign: Campaign!
@@ -15,7 +15,7 @@ type Party {
 }
 
 type PlayerCharacter {
-    id: Int!
+    uuid: ID!
     name: String!
     uri: HTTPUrl
     campaign: Campaign!
