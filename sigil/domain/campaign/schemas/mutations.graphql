@@ -1,0 +1,26 @@
+type CampaignMutations {
+    create (input: CreateCampaignInput!): CreateCampaignPayload
+    changeName (input: ChangeNameCampaignInput!): ChangeNameCampaignPayload
+    updateInfo (input: UpdateInfoCampaignInput!): UpdateInfoCampaignPayload
+    delete (input: DeleteCampaignInput!): DeleteCampaignPayload
+}
+
+type PartyMutations {
+    create (input: CreatePartyInput!): CreatePartyPayload
+    changeName (input: ChangeNamePartyInput!): ChangeNamePartyPayload
+    updateInfo (input: UpdateInfoPartyInput!): UpdateInfoPartyPayload
+    addPlayerCharacter(input: AddPCPartyInput!): AddPCPartyPayload
+    removePlayerCharacter(input: RemovePCPartyInput!): RemovePCPartyPayload
+    disband (input: DisbandPartyInput!): DisbandPartyPayload
+}
+
+type PlayerCharacterMutations {
+    add (input: AddPCInput!): AddPCPayload
+    changeName (input: ChangeNamePCInput!): ChangeNamePCPayload
+    updateInfo (input: UpdateInfoPCInput!): UpdateInfoPCPayload
+    assignPlayer (input: AssignPlayerPCInput!): AssignPlayerPCPayload
+    linkCharacterSheet (input: LinkCharacterSheetInput!): LinkCharacterSheetPayload
+    addToParty (input: AddToPartyPCInput!): AddToPartyPCPayload
+    removeFromParty (input: RemoveFromPartyPCInput!): RemoveFromPartyPCPayload
+    delete (input: DeletePCInput!): DeletePCPayload
+}

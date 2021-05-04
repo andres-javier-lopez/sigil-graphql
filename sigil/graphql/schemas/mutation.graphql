@@ -1,0 +1,5 @@
+type Mutation {
+    campaign: CampaignMutations
+    party: PartyMutations
+    playerCharacter: PlayerCharacterMutations
+}

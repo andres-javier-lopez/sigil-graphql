@@ -1,0 +1,240 @@
+input CreateCampaignInput {
+    name: String!
+    description: String
+}
+
+type CreateCampaignPayload {
+    status: OperationStatus!
+    campaignUUID: ID
+    campaign: Campaign
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNameCampaignInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNameCampaignPayload {
+    status: OperationStatus!
+    campaignUUID: ID
+    campaign: Campaign
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateInfoCampaignInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateInfoCampaignPayload {
+    status: OperationStatus!
+    campaignUUID: ID
+    campaign: Campaign
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DeleteCampaignInput {
+    uuid: ID!
+}
+
+type DeleteCampaignPayload {
+    status: OperationStatus!
+    campaignUUID: ID
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input CreatePartyInput {
+    name: String!
+    description: String
+    campaignUUID: ID!
+    playerCharacters: [ID!]!
+}
+
+type CreatePartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNamePartyInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNamePartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateInfoPartyInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateInfoPartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input AddPCPartyInput {
+    partyUUID: ID!
+    playerUUID: ID! 
+}
+
+type AddPCPartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input RemovePCPartyInput {
+    partyUUID: ID!
+    playerUUID: ID!
+}
+
+type RemovePCPartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DisbandPartyInput {
+    uuid: ID!
+}
+
+type DisbandPartyPayload {
+    status: OperationStatus!
+    partyUUID: ID
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input AddPCInput {
+    name: String!
+    description: String
+    player: String
+    uri: HTTPUrl
+    campaignUUID: ID!
+}
+
+type AddPCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNamePCInput {
+    uuid: ID
+    name: String!
+}
+
+type ChangeNamePCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateInfoPCInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateInfoPCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input AssignPlayerPCInput {
+    uuid: ID!
+    player: String!
+}
+
+type AssignPlayerPCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input LinkCharacterSheetInput {
+    uuid: ID!
+    uri: HTTPUrl!
+}
+
+type LinkCharacterSheetPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input AddToPartyPCInput {
+    playerUUID: ID!
+    partyUUID: ID!
+}
+
+type AddToPartyPCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input RemoveFromPartyPCInput {
+    playerUUID: ID!
+    partyUUID: ID!
+}
+
+type RemoveFromPartyPCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DeletePCInput {
+    uuid: ID!
+}
+
+type DeletePCPayload {
+    status: OperationStatus!
+    playerUUID: ID
+    errors: [GenericProblems!]
+    query: Query
+}

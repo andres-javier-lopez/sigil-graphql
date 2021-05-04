@@ -1,6 +1,21 @@
 scalar HTTPUrl
 
+enum OperationStatus {
+    SUCCESS
+    FAILURE
+}
+
 interface Descriptable {
     name: String!
     description: String
 }
+
+interface Problem {
+    message: String!
+}
+
+type ServerProblem implements Problem {
+    message: String!
+}
+
+union GenericProblems = ServerProblem
