@@ -38,12 +38,12 @@ type UpdateInfoCampaignPayload {
 }
 
 input DeleteCampaignInput {
-    uuid: ID!
+    uuid: [ID!]!
 }
 
 type DeleteCampaignPayload {
     status: OperationStatus!
-    campaignUUID: ID
+    campaignUUID: [ID!]
     errors: [GenericProblems!]
     query: Query
 }
@@ -91,41 +91,41 @@ type UpdateInfoPartyPayload {
 
 input AddPCPartyInput {
     partyUUID: ID!
-    playerUUID: ID! 
+    playerUUID: [ID!]! 
 }
 
 type AddPCPartyPayload {
     status: OperationStatus!
     partyUUID: ID
     party: Party
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
+    playerUUID: [ID!]
+    playerCharacter: [PlayerCharacter!]
     errors: [GenericProblems!]
     query: Query
 }
 
 input RemovePCPartyInput {
     partyUUID: ID!
-    playerUUID: ID!
+    playerUUID: [ID!]!
 }
 
 type RemovePCPartyPayload {
     status: OperationStatus!
     partyUUID: ID
     party: Party
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
+    playerUUID: [ID!]
+    playerCharacter: [PlayerCharacter!]
     errors: [GenericProblems!]
     query: Query
 }
 
 input DisbandPartyInput {
-    uuid: ID!
+    uuid: [ID!]!
 }
 
 type DisbandPartyPayload {
     status: OperationStatus!
-    partyUUID: ID
+    partyUUID: [ID!]
     errors: [GenericProblems!]
     query: Query
 }
@@ -229,12 +229,12 @@ type RemoveFromPartyPCPayload {
 }
 
 input DeletePCInput {
-    uuid: ID!
+    uuid: [ID!]!
 }
 
 type DeletePCPayload {
     status: OperationStatus!
-    playerUUID: ID
+    playerUUID: [ID!]
     errors: [GenericProblems!]
     query: Query
 }
