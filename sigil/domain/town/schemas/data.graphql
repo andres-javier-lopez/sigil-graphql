@@ -20,6 +20,10 @@ enum CoinType {
     PLATINUM
 }
 
+extend type Query {
+    items: [Item!]!
+}
+
 extend type Campaign {
     hubs: [Hub!]!
     npcs: [NPC!]!

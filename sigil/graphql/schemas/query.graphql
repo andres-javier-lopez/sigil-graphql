@@ -1,9 +1,4 @@
 
 type Query {
     version: String!
-
-    campaigns: [Campaign!]!
-    playerCharacters: [PlayerCharacter!]!
-
-    items: [Item!]!
 }

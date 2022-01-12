@@ -10,6 +10,10 @@ interface PayloadInterface {
     query: Query
 }
 
+type PingPayload {
+    status: OperationStatus!
+}
+
 interface DescriptableInterface {
     name: String!
     description: String

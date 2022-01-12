@@ -1,3 +1,9 @@
+extend type Mutation {
+    campaign: CampaignMutations
+    party: PartyMutations
+    playerCharacter: PlayerCharacterMutations
+}
+
 type CampaignMutations {
     create (input: CreateCampaignInput!): CreateCampaignPayload
     changeName (input: ChangeNameCampaignInput!): ChangeNameCampaignPayload
