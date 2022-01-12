@@ -35,17 +35,17 @@ extend type PlayerCharacter {
     relationships: [Relationship!]!
 }
 
-type Hub implements Descriptable {
+type Hub implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
-    campaign: Campaign
+    campaign: Campaign!
     landmarks: [Landmark!]!
     npcs: [NPCInfo!]!
     shops: [Shop!]!
 }
 
-type NPC implements Descriptable {
+type NPC implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -73,7 +73,7 @@ type Relationship {
     notes: String
 }
 
-type Landmark implements Descriptable {
+type Landmark implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -88,7 +88,7 @@ type LandmarkInfo {
     notes: String
 }
 
-type Quest implements Descriptable {
+type Quest implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String!
@@ -105,7 +105,7 @@ type QuestInfo {
     notes: String
 }
 
-type Shop implements Descriptable {
+type Shop implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -114,7 +114,7 @@ type Shop implements Descriptable {
     sells: [Item!]!
 }
 
-type Item implements Descriptable {
+type Item implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -130,7 +130,7 @@ type ItemInfo {
     notes: String
 }
 
-type Treasure implements Descriptable {
+type Treasure implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String!

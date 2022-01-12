@@ -5,16 +5,21 @@ enum OperationStatus {
     FAILURE
 }
 
-interface Descriptable {
+interface PayloadInterface {
+    status: OperationStatus!
+    query: Query
+}
+
+interface DescriptableInterface {
     name: String!
     description: String
 }
 
-interface Problem {
+interface ProblemInterface {
     message: String!
 }
 
-type ServerProblem implements Problem {
+type ServerProblem implements ProblemInterface {
     message: String!
 }
 

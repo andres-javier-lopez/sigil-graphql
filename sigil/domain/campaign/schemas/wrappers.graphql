@@ -3,7 +3,7 @@ input CreateCampaignInput {
     description: String
 }
 
-type CreateCampaignPayload {
+type CreateCampaignPayload implements PayloadInterface {
     status: OperationStatus!
     campaignUUID: ID
     campaign: Campaign
@@ -16,7 +16,7 @@ input ChangeNameCampaignInput {
     name: String!
 }
 
-type ChangeNameCampaignPayload {
+type ChangeNameCampaignPayload implements PayloadInterface {
     status: OperationStatus!
     campaignUUID: ID
     campaign: Campaign
@@ -29,7 +29,7 @@ input UpdateInfoCampaignInput {
     description: String!
 }
 
-type UpdateInfoCampaignPayload {
+type UpdateInfoCampaignPayload implements PayloadInterface {
     status: OperationStatus!
     campaignUUID: ID
     campaign: Campaign
@@ -41,7 +41,7 @@ input DeleteCampaignInput {
     uuid: [ID!]!
 }
 
-type DeleteCampaignPayload {
+type DeleteCampaignPayload implements PayloadInterface {
     status: OperationStatus!
     campaignUUID: [ID!]
     errors: [GenericProblems!]
@@ -55,7 +55,7 @@ input CreatePartyInput {
     playerCharacters: [ID!]!
 }
 
-type CreatePartyPayload {
+type CreatePartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -68,7 +68,7 @@ input ChangeNamePartyInput {
     name: String!
 }
 
-type ChangeNamePartyPayload {
+type ChangeNamePartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -81,7 +81,7 @@ input UpdateInfoPartyInput {
     description: String!
 }
 
-type UpdateInfoPartyPayload {
+type UpdateInfoPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -94,7 +94,7 @@ input AddPCPartyInput {
     playerUUID: [ID!]! 
 }
 
-type AddPCPartyPayload {
+type AddPCPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -109,7 +109,7 @@ input RemovePCPartyInput {
     playerUUID: [ID!]!
 }
 
-type RemovePCPartyPayload {
+type RemovePCPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -123,7 +123,7 @@ input DisbandPartyInput {
     uuid: [ID!]!
 }
 
-type DisbandPartyPayload {
+type DisbandPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: [ID!]
     errors: [GenericProblems!]
@@ -138,7 +138,7 @@ input AddPCInput {
     campaignUUID: ID!
 }
 
-type AddPCPayload {
+type AddPCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -151,7 +151,7 @@ input ChangeNamePCInput {
     name: String!
 }
 
-type ChangeNamePCPayload {
+type ChangeNamePCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -164,7 +164,7 @@ input UpdateInfoPCInput {
     description: String!
 }
 
-type UpdateInfoPCPayload {
+type UpdateInfoPCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -177,7 +177,7 @@ input AssignPlayerPCInput {
     player: String!
 }
 
-type AssignPlayerPCPayload {
+type AssignPlayerPCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -190,7 +190,7 @@ input LinkCharacterSheetInput {
     uri: HTTPUrl!
 }
 
-type LinkCharacterSheetPayload {
+type LinkCharacterSheetPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -203,7 +203,7 @@ input AddToPartyPCInput {
     partyUUID: ID!
 }
 
-type AddToPartyPCPayload {
+type AddToPartyPCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -218,7 +218,7 @@ input RemoveFromPartyPCInput {
     partyUUID: ID!
 }
 
-type RemoveFromPartyPCPayload {
+type RemoveFromPartyPCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: ID
     playerCharacter: PlayerCharacter
@@ -232,7 +232,7 @@ input DeletePCInput {
     uuid: [ID!]!
 }
 
-type DeletePCPayload {
+type DeletePCPayload implements PayloadInterface {
     status: OperationStatus!
     playerUUID: [ID!]
     errors: [GenericProblems!]

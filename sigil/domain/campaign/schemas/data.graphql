@@ -1,4 +1,4 @@
-type Campaign implements Descriptable {
+type Campaign implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -6,7 +6,7 @@ type Campaign implements Descriptable {
     playerCharacters: [PlayerCharacter!]!
 }
 
-type Party implements Descriptable {
+type Party implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
@@ -14,7 +14,7 @@ type Party implements Descriptable {
     playerCharacters: [PlayerCharacter!]!
 }
 
-type PlayerCharacter implements Descriptable {
+type PlayerCharacter implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
