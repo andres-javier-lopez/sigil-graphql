@@ -1,3 +1,5 @@
+## Campaign ##
+
 input CreateCampaignInput {
     name: String!
     description: String
@@ -24,12 +26,25 @@ type ChangeNameCampaignPayload implements PayloadInterface {
     query: Query
 }
 
-input UpdateInfoCampaignInput {
+input UpdateDescriptionCampaignInput {
     uuid: ID!
     description: String!
 }
 
-type UpdateInfoCampaignPayload implements PayloadInterface {
+type UpdateDescriptionCampaignPayload implements PayloadInterface {
+    status: OperationStatus!
+    campaignUUID: ID
+    campaign: Campaign
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesCampaignInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesCampaignPayload implements PayloadInterface {
     status: OperationStatus!
     campaignUUID: ID
     campaign: Campaign
@@ -47,6 +62,102 @@ type DeleteCampaignPayload implements PayloadInterface {
     errors: [GenericProblems!]
     query: Query
 }
+
+## Player Character ##
+
+input AddPCInput {
+    name: String!
+    description: String
+    player: String
+    uri: HTTPUrl
+    campaignUUID: ID!
+}
+
+type AddPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNamePCInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNamePCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateDescriptionPCInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateDescriptionPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesPCInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input AssignPlayerPCInput {
+    uuid: ID!
+    player: String!
+}
+
+type AssignPlayerPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input LinkCharacterSheetInput {
+    uuid: ID!
+    uri: HTTPUrl!
+}
+
+type LinkCharacterSheetPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: ID
+    playerCharacter: PlayerCharacter
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DeletePCInput {
+    uuid: [ID!]!
+}
+
+type DeletePCPayload implements PayloadInterface {
+    status: OperationStatus!
+    playerUUID: [ID!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+## Party ##
 
 input CreatePartyInput {
     name: String!
@@ -76,12 +187,25 @@ type ChangeNamePartyPayload implements PayloadInterface {
     query: Query
 }
 
-input UpdateInfoPartyInput {
+input UpdateDescriptionPartyInput {
     uuid: ID!
     description: String!
 }
 
-type UpdateInfoPartyPayload implements PayloadInterface {
+type UpdateDescriptionPartyPayload implements PayloadInterface {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesPartyInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: ID
     party: Party
@@ -91,7 +215,7 @@ type UpdateInfoPartyPayload implements PayloadInterface {
 
 input AddPCPartyInput {
     partyUUID: ID!
-    playerUUID: [ID!]! 
+    playerUUID: [ID!]!
 }
 
 type AddPCPartyPayload implements PayloadInterface {
@@ -126,115 +250,6 @@ input DisbandPartyInput {
 type DisbandPartyPayload implements PayloadInterface {
     status: OperationStatus!
     partyUUID: [ID!]
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input AddPCInput {
-    name: String!
-    description: String
-    player: String
-    uri: HTTPUrl
-    campaignUUID: ID!
-}
-
-type AddPCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input ChangeNamePCInput {
-    uuid: ID
-    name: String!
-}
-
-type ChangeNamePCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input UpdateInfoPCInput {
-    uuid: ID!
-    description: String!
-}
-
-type UpdateInfoPCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input AssignPlayerPCInput {
-    uuid: ID!
-    player: String!
-}
-
-type AssignPlayerPCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input LinkCharacterSheetInput {
-    uuid: ID!
-    uri: HTTPUrl!
-}
-
-type LinkCharacterSheetPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input AddToPartyPCInput {
-    playerUUID: ID!
-    partyUUID: ID!
-}
-
-type AddToPartyPCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    partyUUID: ID
-    party: Party
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input RemoveFromPartyPCInput {
-    playerUUID: ID!
-    partyUUID: ID!
-}
-
-type RemoveFromPartyPCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: ID
-    playerCharacter: PlayerCharacter
-    partyUUID: ID
-    party: Party
-    errors: [GenericProblems!]
-    query: Query
-}
-
-input DeletePCInput {
-    uuid: [ID!]!
-}
-
-type DeletePCPayload implements PayloadInterface {
-    status: OperationStatus!
-    playerUUID: [ID!]
     errors: [GenericProblems!]
     query: Query
 }

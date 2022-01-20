@@ -7,6 +7,7 @@ type Campaign implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     parties: [Party!]!
     playerCharacters: [PlayerCharacter!]!
 }
@@ -15,6 +16,7 @@ type Party implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     campaign: Campaign!
     playerCharacters: [PlayerCharacter!]!
 }
@@ -23,6 +25,7 @@ type PlayerCharacter implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     player: String
     uri: HTTPUrl
     campaign: Campaign!

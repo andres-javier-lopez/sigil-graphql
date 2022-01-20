@@ -1,0 +1,39 @@
+extend type Mutation {
+    hub: HubMutations
+    landmark: LandmarkMutations
+    npc: NPCMutations
+}
+
+extend type PartyMutations {
+    changeCurrentLocationHub (input: ChangeLocationHubPartyInput!): ChangeLocationHubPartyPayload
+    changeCurrentLocationLandmark (input: ChangeLocationLandmarkPartyInput!): ChangeLocationLandmarkPartyPayload
+}
+
+type HubMutations {
+    create (input: CreateHubInput!): CreateHubPayload
+    changeName (input: ChangeNameHubInput!): ChangeNameHubPayload
+    updateDescription (input: UpdateDescriptionHubInput!): UpdateDescriptionHubPayload
+    updateNotes (input: UpdateNotesHubInput!): UpdateNotesHubPayload
+    delete (input: DeleteHubInput!): DeleteHubPayload
+}
+
+type LandmarkMutations {
+    create (input: CreateLandmarkInput!): CreateLandmarkPayload
+    changeName (input: ChangeNameLandmarkInput!): ChangeNameLandmarkPayload
+    updateDescription (input: UpdateDescriptionLandmarkInput!): UpdateDescriptionLandmarkPayload
+    updateNotes (input: UpdateNotesLandmarkInput!): UpdateNotesLandmarkPayload
+    delete (input: DeleteLandmarkInput!): DeleteLandmarkPayload
+}
+
+type NPCMutations {
+    create (input: CreateNPCInput!): CreateNPCPayload
+    changeName (input: ChangeNameNPCInput!): ChangeNameNPCPayload
+    updateDescription (input: UpdateDescriptionNPCInput!): UpdateDescriptionNPCPayload
+    updateNotes (input: UpdateNotesNPCInput!): UpdateNotesNPCPayload
+    linkStatBlock (input: LinkStatBlockNPCInput!): LinkStatBlockNPCPayload
+    linkLocationHub (input: LinkLocationHubNPCInput!): LinkLocationHubNPCPayload
+    removeLocationHub (input: RemoveLocationHubNPCInput!): RemoveLocationHubNPCPayload
+    linkLocationLandmark (input: LinkLocationLandmarkNPCInput!): LinkLocationLandmarkNPCPayload
+    removeLocationLandmark (input: RemoveLocationLandmarkNPCInput!): RemoveLocationLandmarkNPCPayload
+    delete (input: DeleteNPCInput!): DeleteNPCPayload
+}

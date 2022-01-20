@@ -2,6 +2,7 @@ scalar HTTPUrl
 
 enum OperationStatus {
     SUCCESS
+    PARTIAL_SUCCESS
     FAILURE
 }
 

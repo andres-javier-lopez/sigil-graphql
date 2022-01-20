@@ -1,0 +1,310 @@
+## Party ##
+
+input ChangeLocationHubPartyInput {
+    partyUUID: ID!
+    hubUUID: ID!
+}
+
+type ChangeLocationHubPartyPayload implements PayloadInterface {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    hubUUID: ID
+    hub: Hub
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeLocationLandmarkPartyInput {
+    partyUUID: ID!
+    landmarkUUID: ID!
+}
+
+type ChangeLocationLandmarkPartyPayload implements PayloadInterface {
+    status: OperationStatus!
+    partyUUID: ID
+    party: Party
+    landmarkUUID: ID
+    landmark: Landmark
+    errors: [GenericProblems!]
+    query: Query
+}
+
+## Hub ##
+
+input CreateHubInput {
+    name: String!
+    campaignUUID: ID!
+}
+
+type CreateHubPayload implements PayloadInterface {
+    status: OperationStatus!
+    hubUUID: ID
+    hub: Hub
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNameHubInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNameHubPayload implements PayloadInterface {
+    status: OperationStatus!
+    hubUUID: ID
+    hub: Hub
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateDescriptionHubInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateDescriptionHubPayload implements PayloadInterface {
+    status: OperationStatus!
+    hubUUID: ID
+    hub: Hub
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesHubInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesHubPayload implements PayloadInterface {
+    status: OperationStatus!
+    hubUUID: ID
+    hub: Hub
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DeleteHubInput {
+    uuid: [ID!]!
+}
+
+type DeleteHubPayload implements PayloadInterface {
+    status: OperationStatus!
+    hubUUID: [ID!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+
+## Landmark ##
+
+input CreateLandmarkInput {
+    name: String!
+    hubUUID: ID!
+}
+
+type CreateLandmarkPayload implements PayloadInterface {
+    status: OperationStatus!
+    landmarkUUID: ID
+    landmark: Landmark
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNameLandmarkInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNameLandmarkPayload implements PayloadInterface {
+    status: OperationStatus!
+    landmarkUUID: ID
+    landmark: Landmark
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateDescriptionLandmarkInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateDescriptionLandmarkPayload implements PayloadInterface {
+    status: OperationStatus!
+    landmarkUUID: ID
+    landmark: Landmark
+    erros: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesLandmarkInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesLandmarkPayload implements PayloadInterface {
+    status: OperationStatus!
+    landmarkUUID: ID
+    landmark: Landmark
+    erros: [GenericProblems!]
+    query: Query
+}
+
+input DeleteLandmarkInput {
+    uuid: [ID!]!
+}
+
+type DeleteLandmarkPayload implements PayloadInterface {
+    status: OperationStatus!
+    landmarkUUID: [ID!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+## NPC ##
+
+input CreateNPCInput {
+    name: String!
+    campaignUUID: ID!
+}
+
+type CreateNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input ChangeNameNPCInput {
+    uuid: ID!
+    name: String!
+}
+
+type ChangeNameNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateDescriptionNPCInput {
+    uuid: ID!
+    description: String!
+}
+
+type UpdateDescriptionNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input UpdateNotesNPCInput {
+    uuid: ID!
+    notes: String!
+}
+
+type UpdateNotesNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input LinkStatBlockNPCInput {
+    uuid: ID!
+    statsBlock: HTTPUrl!
+}
+
+type LinkStatBlockNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    erros: [GenericProblems!]
+    query: Query
+}
+
+input LocationHubInput {
+    hubUUID: ID!
+    notes: String
+}
+
+input LinkLocationHubNPCInput {
+    uuid: ID!
+    hub: [LocationHubInput!]!
+}
+
+type LinkLocationHubNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    hubUUID: [ID!]
+    location: [LocationInfo!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input RemoveLocationHubNPCInput {
+    npcUUID: ID!
+    hubUUID: [ID!]!
+}
+
+type RemoveLocationHubNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    hubUUID: [ID!]
+    hub: [Hub!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input LocationLandmarkInput {
+    landmarkUUID: ID!
+    notes: String
+}
+
+input LinkLocationLandmarkNPCInput {
+    uuid: ID!
+    landmark: [LocationLandmarkInput!]!
+}
+
+type LinkLocationLandmarkNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID
+    npc: NPC
+    landmarkUUID: [ID!]
+    location: [LocationInfo!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input RemoveLocationLandmarkNPCInput {
+    npcUUID: ID!
+    landmarkUUID: [ID!]!
+}
+
+type RemoveLocationLandmarkNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: ID!
+    npc: NPC
+    landmarkUUID: [ID!]
+    landmark: [Landmark!]
+    errors: [GenericProblems!]
+    query: Query
+}
+
+input DeleteNPCInput {
+    uuid: [ID!]!
+}
+
+type DeleteNPCPayload implements PayloadInterface {
+    status: OperationStatus!
+    npcUUID: [ID!]
+    errors: [GenericProblems!]
+    query: Query
+}

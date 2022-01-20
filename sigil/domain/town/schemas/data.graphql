@@ -4,7 +4,7 @@ union Location = Hub | Landmark
 
 union Reference = NPCInfo | LandmarkInfo | ItemInfo
 
-union QuestStarter = NPCInfo | ItemInfo | QuestInfo | LandmarkInfo 
+union QuestStarter = NPCInfo | ItemInfo | QuestInfo | LandmarkInfo
 
 enum RelationshipStatus {
     FRIENDLY
@@ -32,6 +32,7 @@ extend type Campaign {
 }
 
 extend type Party {
+    currentLocation: Location
     quests: [QuestInfo!]!
 }
 
@@ -43,6 +44,7 @@ type Hub implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     campaign: Campaign!
     landmarks: [Landmark!]!
     npcs: [NPCInfo!]!
@@ -53,12 +55,13 @@ type NPC implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     campaign: Campaign!
     statsBlock: HTTPUrl
     location: [LocationInfo!]!
     ownedShop: Shop
     quests: [QuestInfo!]!
-    relationships: [Relationship!]! 
+    relationships: [Relationship!]!
 }
 
 type NPCInfo {
@@ -81,6 +84,7 @@ type Landmark implements DescriptableInterface {
     uuid: ID!
     name: String!
     description: String
+    notes: String
     campaign: Campaign!
     belongsTo: Hub!
     people: [NPCInfo!]!

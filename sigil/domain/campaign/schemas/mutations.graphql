@@ -7,26 +7,27 @@ extend type Mutation {
 type CampaignMutations {
     create (input: CreateCampaignInput!): CreateCampaignPayload
     changeName (input: ChangeNameCampaignInput!): ChangeNameCampaignPayload
-    updateInfo (input: UpdateInfoCampaignInput!): UpdateInfoCampaignPayload
+    updateDescription (input: UpdateDescriptionCampaignInput!): UpdateDescriptionCampaignPayload
+    updateNotes (input: UpdateNotesCampaignInput!): UpdateNotesCampaignPayload
     delete (input: DeleteCampaignInput!): DeleteCampaignPayload
-}
-
-type PartyMutations {
-    create (input: CreatePartyInput!): CreatePartyPayload
-    changeName (input: ChangeNamePartyInput!): ChangeNamePartyPayload
-    updateInfo (input: UpdateInfoPartyInput!): UpdateInfoPartyPayload
-    addPlayerCharacter(input: AddPCPartyInput!): AddPCPartyPayload
-    removePlayerCharacter(input: RemovePCPartyInput!): RemovePCPartyPayload
-    disband (input: DisbandPartyInput!): DisbandPartyPayload
 }
 
 type PlayerCharacterMutations {
     add (input: AddPCInput!): AddPCPayload
     changeName (input: ChangeNamePCInput!): ChangeNamePCPayload
-    updateInfo (input: UpdateInfoPCInput!): UpdateInfoPCPayload
+    updateDescription (input: UpdateDescriptionPCInput!): UpdateDescriptionPCPayload
+    updateNotes (input: UpdateNotesPCInput!): UpdateNotesPCPayload
     assignPlayer (input: AssignPlayerPCInput!): AssignPlayerPCPayload
     linkCharacterSheet (input: LinkCharacterSheetInput!): LinkCharacterSheetPayload
-    addToParty (input: AddToPartyPCInput!): AddToPartyPCPayload
-    removeFromParty (input: RemoveFromPartyPCInput!): RemoveFromPartyPCPayload
     delete (input: DeletePCInput!): DeletePCPayload
+}
+
+type PartyMutations {
+    create (input: CreatePartyInput!): CreatePartyPayload
+    changeName (input: ChangeNamePartyInput!): ChangeNamePartyPayload
+    updateDescription (input: UpdateDescriptionPartyInput!): UpdateDescriptionPartyPayload
+    updateNotes (input: UpdateNotesPartyInput!): UpdateNotesPartyPayload
+    addPlayerCharacter(input: AddPCPartyInput!): AddPCPartyPayload
+    removePlayerCharacter(input: RemovePCPartyInput!): RemovePCPartyPayload
+    disband (input: DisbandPartyInput!): DisbandPartyPayload
 }
