@@ -11,6 +11,8 @@ uvicorn = "*"
 
 [dev-packages]
 flake8 = "*"
+pytest = "*"
+sigil = {editable = true, path = "."}
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
