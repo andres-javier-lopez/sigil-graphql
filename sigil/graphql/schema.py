@@ -1,6 +1,10 @@
 from os import path
 
-from ariadne import load_schema_from_path, make_executable_schema
+from ariadne import (
+    load_schema_from_path,
+    make_executable_schema,
+    snake_case_fallback_resolvers,
+)
 
 from .resolvers import query
 from sigil.domain import campaign, town
@@ -19,4 +23,5 @@ schema = make_executable_schema(
         town.type_defs,
     ],
     query,
+    snake_case_fallback_resolvers,
 )
