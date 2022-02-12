@@ -8,6 +8,9 @@ pydantic = "*"
 fastapi = "*"
 ariadne = "*"
 uvicorn = "*"
+sqlalchemy = "*"
+alembic = "*"
+asyncpg = "*"
 
 [dev-packages]
 flake8 = "*"
