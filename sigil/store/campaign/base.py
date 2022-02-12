@@ -17,11 +17,11 @@ class CampaignStore(BaseStore):
         raise NotImplementedError
 
     @abstractmethod
-    async def save(self, model: Campaign):
+    async def save(self, entity: Campaign):
         raise NotImplementedError
 
     @abstractmethod
-    async def save_all(self, models: List[Campaign]):
+    async def save_all(self, entities: List[Campaign]):
         raise NotImplementedError
 
     @abstractmethod

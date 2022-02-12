@@ -15,11 +15,11 @@ class BaseStore(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    async def save(self, model: BaseModel):
+    async def save(self, entity: BaseModel):
         raise NotImplementedError
 
     @abc.abstractmethod
-    async def save_all(self, models: List[BaseModel]):
+    async def save_all(self, entities: List[BaseModel]):
         raise NotImplementedError
 
     @abc.abstractmethod

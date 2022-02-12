@@ -17,6 +17,9 @@ class Campaign(BaseModel):
     parties: List[Party] = []
     player_characters: List[PlayerCharacter] = []
 
+    class Config:
+        orm_mode = True
+
 
 class Party(BaseModel):
     uuid: UUID4 = Field(default_factory=uuid.uuid4)
