@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sigil.domain.campaign.entities import Campaign
 from sigil.store.adapters.psql import select
 from sigil.store.campaign.base import CampaignStore
-from sigil.store.campaign.psql.models import CampaignModel
+from sigil.store.adapters.psql.models.campaign import CampaignModel
 
 
 class CampaingStorePsql(CampaignStore):

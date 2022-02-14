@@ -1,5 +1,5 @@
 from sigil.domain.campaign.entities import Campaign
-from sigil.store.campaign.psql.store import CampaingStorePsql
+from sigil.store.adapters.psql.stores.campaign import CampaingStorePsql
 
 
 async def test_campaign_store(psql_session, mock_campaign: Campaign):
