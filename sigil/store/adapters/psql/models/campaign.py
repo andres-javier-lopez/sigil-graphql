@@ -4,7 +4,8 @@ from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import UUID, TEXT
 
 from sigil.domain.campaign.entities import Campaign
-from sigil.store.adapters.psql import Base
+
+from .base import Base
 
 
 class CampaignModel(Base):

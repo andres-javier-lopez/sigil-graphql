@@ -7,7 +7,7 @@ from ..base import BaseStore
 from sigil.domain.campaign.entities import Campaign
 
 
-class CampaignStore(BaseStore):
+class BaseCampaignStore(BaseStore):
     @abstractmethod
     async def list(self) -> List[Campaign]:
         raise NotImplementedError

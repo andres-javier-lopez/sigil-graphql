@@ -4,7 +4,8 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 from sigil import settings
-from sigil.store.adapters.psql import create_connection_string, Base
+from sigil.store.adapters.psql import create_connection_string
+from sigil.store.adapters.psql.models import Base
 
 
 @pytest.fixture
