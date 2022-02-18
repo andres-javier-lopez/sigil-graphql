@@ -9,7 +9,7 @@ from .base import Base
 
 
 class CampaignModel(Base):
-    __tablename__ = 'campaings'
+    __tablename__ = 'campaigns'
 
     uuid = Column(UUID(as_uuid=True), primary_key=True)
     name = Column(String)

@@ -17,7 +17,7 @@ depends_on = None
 
 
 def upgrade():
-    op.create_table('campaings',
+    op.create_table('campaigns',
     sa.Column('uuid', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('description', sa.TEXT(), nullable=True),
