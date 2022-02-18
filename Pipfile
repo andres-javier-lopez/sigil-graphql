@@ -11,6 +11,7 @@ uvicorn = "*"
 sqlalchemy = "*"
 alembic = "*"
 asyncpg = "*"
+faker = "*"
 
 [dev-packages]
 flake8 = "*"
