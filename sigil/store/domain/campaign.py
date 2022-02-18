@@ -3,8 +3,8 @@ from typing import List, Optional
 
 from pydantic import UUID4
 
-from ..base import BaseStore
 from sigil.domain.campaign.entities import Campaign
+from sigil.store.base import BaseStore
 
 
 class BaseCampaignStore(BaseStore):

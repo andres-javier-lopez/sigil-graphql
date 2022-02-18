@@ -22,7 +22,7 @@ def create_connection_string(user, password, host, port, db):
 
 engine = create_async_engine(get_connection_string())
 
-Session: AsyncSession = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 
 def select(*entities) -> Select:
