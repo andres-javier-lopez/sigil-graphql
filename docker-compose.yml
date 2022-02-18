@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  sigil-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+    ports:
+      - 8001:8001
+    env_file: .env
+    environment:
+      DB_HOST: db
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    env_file: .env
+    environment:
+      DB_TEST_HOST: testdb
+    command: "pytest"
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - testdb
+    profiles:
+      - test
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+  testdb:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+      POSTGRES_DB: ${DB_TEST_NAME}
+    profiles:
+      - test

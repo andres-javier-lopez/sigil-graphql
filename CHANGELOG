@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
-
+### Added
+* Seed script for database
+* Database adapter for PostgreSQL
+* Store for campaigns
+* Dockerize project
 
 ## [0.0.1] - 2022-02-18
 ### Added
