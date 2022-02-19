@@ -1,5 +1,6 @@
 import os
 
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')

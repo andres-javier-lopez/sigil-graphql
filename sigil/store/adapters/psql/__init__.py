@@ -7,6 +7,10 @@ from sigil import settings
 
 
 def get_connection_string():
+    if settings.DATABASE_URL:
+        async_url = settings.DATABASE_URL.replace('postgres://', 'postgresql+asyncpg://')
+        return async_url
+
     return create_connection_string(
         settings.DB_USER,
         settings.DB_PASSWORD,
