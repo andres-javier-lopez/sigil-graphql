@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+
+
+## [0.0.2] - 2022-02-18
 ### Added
 * Add support to heroku database configuration
 * Add resolver to query list of campaings from store
