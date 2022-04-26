@@ -10,8 +10,9 @@ services:
     env_file: .env
     environment:
       DB_HOST: db
+    command: "scripts/launch.local.sh"
     volumes:
-      - .:/usr/src/app
+      - ./sigil:/usr/src/app/sigil
     depends_on:
       - db
   test:

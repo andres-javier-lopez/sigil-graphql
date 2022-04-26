@@ -10,7 +10,9 @@ FROM base AS req
 COPY pyproject.toml .
 COPY poetry.lock .
 
-RUN poetry install --no-dev --no-root
+RUN poetry config virtualenvs.create true && \
+poetry config virtualenvs.in-project true && \
+poetry install --no-dev --no-root
 
 FROM req AS code
 
@@ -19,7 +21,7 @@ RUN poetry install --no-dev
 
 FROM code AS app
 
-CMD ["scripts/launch.sh"]
+CMD ["scripts/launch.local.sh"]
 
 FROM req AS dev
 
