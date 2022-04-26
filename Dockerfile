@@ -10,11 +10,12 @@ FROM base AS req
 COPY pyproject.toml .
 COPY poetry.lock .
 
-RUN poetry install --no-dev
+RUN poetry install --no-dev --no-root
 
 FROM req AS code
 
 COPY . .
+RUN poetry install --no-dev
 
 FROM code AS app
 
@@ -22,6 +23,7 @@ CMD ["scripts/launch.sh"]
 
 FROM req AS dev
 
-RUN poetry install
+RUN poetry install --no-root
 
 COPY . .
+RUN poetry install
