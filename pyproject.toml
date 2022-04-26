@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "sigil"
+version = "0.2.0"
+description = "GraphQL backend for Sigil app"
+authors = ["Andres Javier Lopez <ajavier.lopez@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.9.0"
+fastapi = "^0.75.2"
+ariadne = "^0.15.1"
+uvicorn = "^0.17.6"
+SQLAlchemy = "^1.4.35"
+alembic = "^1.7.7"
+asyncpg = "^0.25.0"
+Faker = "^13.4.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+pytest = "^7.1.2"
+pytest-asyncio = "^0.18.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
