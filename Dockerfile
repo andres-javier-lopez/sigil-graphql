@@ -1,29 +1,31 @@
 FROM python:3.9 AS base
 
 RUN pip install --upgrade pip && \
-pip install pipenv
+pip install poetry
 
 WORKDIR /usr/src/app
 
 FROM base AS req
 
-COPY Pipfile .
-COPY Pipfile.lock .
+COPY pyproject.toml .
+COPY poetry.lock .
 
-RUN pipenv lock --requirements > requirements.txt && \
-pip install -r requirements.txt
+RUN poetry config virtualenvs.create true && \
+poetry config virtualenvs.in-project true && \
+poetry install --no-dev --no-root
 
 FROM req AS code
 
 COPY . .
-
-RUN pip install -e .
+RUN poetry install --no-dev
 
 FROM code AS app
 
-CMD ["scripts/launch.sh"]
+CMD ["scripts/launch.local.sh"]
 
-FROM code AS dev
+FROM req AS dev
 
-RUN pipenv lock --dev --requirements > requirements.txt && \
-pip install -r requirements.txt
+RUN poetry install --no-root
+
+COPY . .
+RUN poetry install

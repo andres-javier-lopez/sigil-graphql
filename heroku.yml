@@ -1,0 +1,7 @@
+build:
+  docker:
+    web:
+      dockerfile: Dockerfile
+      target: app
+run:
+  web: scripts/launch.heroku.sh
