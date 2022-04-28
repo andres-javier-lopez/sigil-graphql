@@ -26,6 +26,17 @@ async def init_storage():
         await conn.run_sync(run_stamp, alembic_cfg)
 
 
+def run_upgrade(connection, cfg):
+    cfg.attributes["connection"] = connection
+    command.upgrade(cfg, "head")
+
+
+async def upgrade_storage():
+    async with engine.begin() as conn:
+        alembic_cfg = Config(alembic_ini)
+        await conn.run_sync(run_upgrade, alembic_cfg)
+
+
 def seed_stores(func):
     @wraps(func)
     async def _seed_with_stores(*args, **kwargs):

@@ -33,5 +33,17 @@ def seed_command(init):
     asyncio.run(_seed_command(init))
 
 
+async def _upgrade_command():
+    click.echo("Upgrading store to latest version")
+    await actions.upgrade()
+    click.echo("Upgrade finished")
+
+
+@click.command(name="upgrade", help="Upgrade store to latest version")
+def upgrade_command():
+    asyncio.run(_upgrade_command())
+
+
 store.add_command(init_command)
 store.add_command(seed_command)
+store.add_command(upgrade_command)
