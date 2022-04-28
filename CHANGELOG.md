@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Added
+* Add command line interface for tasks
 ### Changed
 * Change dependency manager to Poetry
 
