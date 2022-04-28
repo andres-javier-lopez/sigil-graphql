@@ -25,7 +25,7 @@ services:
       DB_TEST_HOST: testdb
     command: "scripts/tests.sh"
     volumes:
-      - .:/usr/src/app
+      - ./sigil:/usr/src/app/sigil
     depends_on:
       - testdb
     profiles:
