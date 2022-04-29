@@ -1,9 +1,8 @@
 import click
 
-from sigil.store.cli import store
-
+from sigil.storage.cli import storage
 
 cli = click.Group(name="cli")
-cli.add_command(store)
+cli.add_command(storage)
 
 cli()

@@ -4,21 +4,19 @@ from pydantic import UUID4
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sigil.domain.campaign.entities import Campaign
-from sigil.store.adapters.psql import select
-from sigil.store.adapters.psql.models import CampaignModel
-from sigil.store.domain.campaign import BaseCampaignStore
+from sigil.storage.adapters.psql import select
+from sigil.storage.adapters.psql.models import CampaignModel
+from sigil.storage.domain.campaign import BaseCampaignStorage
 
 
-class CampaingStorePsql(BaseCampaignStore):
+class CampaingStoragePsql(BaseCampaignStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 
     async def list(self) -> List[Campaign]:
         stmt = select(CampaignModel)
         result = await self.session.execute(stmt)
-        campaings = [
-            Campaign.from_orm(row) for row in result.scalars()
-        ]
+        campaings = [Campaign.from_orm(row) for row in result.scalars()]
         return campaings
 
     async def get(self, uuid: UUID4) -> Optional[Campaign]:

@@ -1,20 +1,20 @@
-from os import path
 from functools import wraps
+from os import path
 
 from alembic import command
 from alembic.config import Config
 
-from sigil.store.adapters.psql import engine, async_session
-from sigil.store.adapters.psql.models.base import Base
-from sigil.store.interfaces import CampaignStore
+from sigil.storage.adapters.psql import async_session, engine
+from sigil.storage.adapters.psql.models.base import Base
+from sigil.storage.interfaces import CampaignStorage
 
 dirname = path.dirname(__file__)
-alembic_ini = path.join(dirname, 'alembic.ini')
+alembic_ini = path.join(dirname, "alembic.ini")
 
 
 def _run_stamp(connection, cfg):
-    cfg.attributes['connection'] = connection
-    command.stamp(cfg, 'head')
+    cfg.attributes["connection"] = connection
+    command.stamp(cfg, "head")
 
 
 async def init_storage():
@@ -39,14 +39,15 @@ async def upgrade_storage():
 
 def include_storages(func):
     """Decorator that provides the storages to be seeded"""
+
     @wraps(func)
     async def _include_storages(*args, **kwargs):
         async with async_session() as session:
             async with session.begin():
-                stores = {
-                    CampaignStore.__name__: CampaignStore(session),
+                storages = {
+                    CampaignStorage.__name__: CampaignStorage(session),
                 }
-                await func(*args, **kwargs, stores=stores)
+                await func(*args, **kwargs, storages=storages)
 
                 await session.commit()
         await engine.dispose()

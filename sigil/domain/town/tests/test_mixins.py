@@ -4,7 +4,7 @@ from sigil.domain.town.entities import Hub
 
 def test_campaign_with_hubs():
     campaign = Campaign(
-        name='Test',
+        name="Test",
     )
 
     assert campaign.hubs == []

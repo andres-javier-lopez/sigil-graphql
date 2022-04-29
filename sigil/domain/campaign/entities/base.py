@@ -1,16 +1,16 @@
 from __future__ import annotations
+
 from typing import ForwardRef, List, Optional
-import uuid
+from uuid import uuid4
 
-from pydantic import BaseModel, UUID4, Field, HttpUrl
+from pydantic import UUID4, BaseModel, Field, HttpUrl
 
-
-Party = ForwardRef('Party')
-PlayerCharacter = ForwardRef('PlayerCharacter')
+Party = ForwardRef("Party")
+PlayerCharacter = ForwardRef("PlayerCharacter")
 
 
 class Campaign(BaseModel):
-    uuid: UUID4 = Field(default_factory=uuid.uuid4)
+    uuid: UUID4 = Field(default_factory=uuid4)
     name: str
     description: Optional[str]
     notes: Optional[str]
@@ -22,7 +22,7 @@ class Campaign(BaseModel):
 
 
 class Party(BaseModel):
-    uuid: UUID4 = Field(default_factory=uuid.uuid4)
+    uuid: UUID4 = Field(default_factory=uuid4)
     name: str
     description: Optional[str]
     notes: Optional[str]
@@ -31,7 +31,7 @@ class Party(BaseModel):
 
 
 class PlayerCharacter(BaseModel):
-    uuid: UUID4 = Field(default_factory=uuid.uuid4)
+    uuid: UUID4 = Field(default_factory=uuid4)
     name: str
     description: Optional[str]
     notes: Optional[str]

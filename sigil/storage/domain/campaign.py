@@ -5,10 +5,10 @@ from pydantic import UUID4
 
 from sigil.domain.campaign.entities import Campaign
 from sigil.domain.campaign.entities.mocks import mock_campaigns
-from sigil.store.base import BaseStore
+from sigil.storage.base import BaseStorage
 
 
-class BaseCampaignStore(BaseStore):
+class BaseCampaignStorage(BaseStorage):
     @abstractmethod
     async def list(self) -> List[Campaign]:
         raise NotImplementedError
@@ -30,6 +30,6 @@ class BaseCampaignStore(BaseStore):
         raise NotImplementedError
 
 
-async def seed_campaigns(store: BaseCampaignStore, number=5):
+async def seed_campaigns(storage: BaseCampaignStorage, number=5):
     campaigns = mock_campaigns(number=number)
-    await store.save_all(campaigns)
+    await storage.save_all(campaigns)
