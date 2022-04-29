@@ -1,9 +1,9 @@
 from __future__ import annotations
-from typing import ForwardRef, List, Optional
+
 import uuid
+from typing import ForwardRef, List, Optional
 
-from pydantic import BaseModel, UUID4, Field, HttpUrl
-
+from pydantic import UUID4, BaseModel, Field, HttpUrl
 
 Party = ForwardRef('Party')
 PlayerCharacter = ForwardRef('PlayerCharacter')

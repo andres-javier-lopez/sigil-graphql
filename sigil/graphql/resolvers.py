@@ -5,7 +5,6 @@ from ariadne import QueryType
 from sigil import __version__
 from sigil.domain.campaign.resolvers import campaigns_resolver
 
-
 logger = logging.getLogger(__name__)
 
 query = QueryType()

@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-poetry run python -m pytest
+echo "Running isort"
+poetry run isort --check-only .
+echo "Running pytest"
+poetry run pytest

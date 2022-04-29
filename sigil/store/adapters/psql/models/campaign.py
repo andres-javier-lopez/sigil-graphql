@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from sqlalchemy import Column, String
-from sqlalchemy.dialects.postgresql import UUID, TEXT
+from sqlalchemy.dialects.postgresql import TEXT, UUID
 
 from sigil.domain.campaign.entities import Campaign
 

@@ -1,10 +1,10 @@
-from os import path
 from functools import wraps
+from os import path
 
 from alembic import command
 from alembic.config import Config
 
-from sigil.store.adapters.psql import engine, async_session
+from sigil.store.adapters.psql import async_session, engine
 from sigil.store.adapters.psql.models.base import Base
 from sigil.store.interfaces import CampaignStore
 

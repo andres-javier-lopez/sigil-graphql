@@ -2,7 +2,6 @@ from faker import Faker
 
 from .base import Campaign
 
-
 fake = Faker()
 
 

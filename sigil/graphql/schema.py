@@ -6,9 +6,9 @@ from ariadne import (
     snake_case_fallback_resolvers,
 )
 
-from .resolvers import query
 from sigil.domain import campaign, town
 
+from .resolvers import query
 
 basepath = path.dirname(__file__)
 schemapath = path.abspath(path.join(basepath, 'schemas'))
