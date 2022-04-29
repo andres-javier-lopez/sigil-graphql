@@ -1,1 +1,1 @@
-from .campaign import CampaingStoragePsql
+from .campaign import CampaignStoragePsql

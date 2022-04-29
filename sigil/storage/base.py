@@ -7,7 +7,7 @@ from pydantic import UUID4, BaseModel
 
 class BaseStorage(abc.ABC):
     @abc.abstractmethod
-    async def list(self) -> List[BaseModel]:
+    async def list(self, filter: dict = None) -> List[BaseModel]:
         raise NotImplementedError
 
     @abc.abstractmethod

@@ -10,7 +10,7 @@ from sigil.storage.base import BaseStorage
 
 class BaseCampaignStorage(BaseStorage):
     @abstractmethod
-    async def list(self) -> List[Campaign]:
+    async def list(self, filter: dict = None) -> List[Campaign]:
         raise NotImplementedError
 
     @abstractmethod

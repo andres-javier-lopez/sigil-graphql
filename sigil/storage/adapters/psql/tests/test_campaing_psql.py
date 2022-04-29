@@ -1,12 +1,12 @@
 import pytest
 
 from sigil.domain.campaign.entities import Campaign
-from sigil.storage.adapters.psql.storages.campaign import CampaingStoragePsql
+from sigil.storage.adapters.psql.storages.campaign import CampaignStoragePsql
 
 
 @pytest.mark.database
 async def test_campaign_storage(psql_session, mock_campaign: Campaign):
-    storage = CampaingStoragePsql(psql_session)
+    storage = CampaignStoragePsql(psql_session)
 
     await storage.save(mock_campaign)
 
