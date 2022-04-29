@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sigil"
-version = "0.2.0"
+version = "0.3.0"
 description = "GraphQL backend for Sigil app"
 authors = ["Andres Javier Lopez <ajavier.lopez@gmail.com>"]
 
