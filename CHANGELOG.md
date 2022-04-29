@@ -8,8 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 * Add command line interface for tasks
+* Add linters to dev tools
 ### Changed
 * Change dependency manager to Poetry
+* Change name of system storage
 
 
 ## [0.2.0] - 2022-02-18

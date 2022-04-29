@@ -6,4 +6,4 @@ per-file-ignores =
     actions.py: F401
     interfaces.py: F401
 exclude =
-    sigil/store/adapters/psql/alembic/versions/
+    sigil/storage/adapters/psql/alembic/versions/

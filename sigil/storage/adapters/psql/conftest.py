@@ -3,8 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from sigil import settings
-from sigil.store.adapters.psql import create_connection_string
-from sigil.store.adapters.psql.models import Base
+from sigil.storage.adapters.psql import create_connection_string
+from sigil.storage.adapters.psql.models import Base
 
 
 @pytest.fixture

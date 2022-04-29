@@ -1,11 +1,11 @@
-"""Base classes for store adapters"""
+"""Base classes for storage adapters"""
 import abc
 from typing import List, Optional
 
 from pydantic import UUID4, BaseModel
 
 
-class BaseStore(abc.ABC):
+class BaseStorage(abc.ABC):
     @abc.abstractmethod
     async def list(self) -> List[BaseModel]:
         raise NotImplementedError

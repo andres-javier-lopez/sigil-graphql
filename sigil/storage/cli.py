@@ -2,18 +2,20 @@ import asyncio
 
 import click
 
-from sigil.store import actions
+from sigil.storage import actions
 
-store = click.Group(name="store", help="Manage the system store")
+storage = click.Group(name="storage", help="Manage the system storage")
 
 
 async def _init_command():
-    click.echo("Creating new store")
+    click.echo("Creating new storage")
     await actions.init()
-    click.echo("Store created")
+    click.echo("Storage created")
 
 
-@click.command(name="init", help="Initialize the system store (destroys existing data)")
+@click.command(
+    name="init", help="Initialize the system storage (destroys existing data)"
+)
 def init_command():
     asyncio.run(_init_command())
 
@@ -22,7 +24,7 @@ async def _seed_command(init):
     if init:
         await _init_command()
 
-    click.echo("Seeding your store")
+    click.echo("Seeding your storage")
     await actions.seed()
     click.echo("Seed complete")
 
@@ -31,23 +33,23 @@ async def _seed_command(init):
 @click.option(
     "--init/--no-init",
     default=False,
-    help="Store is initialized before seeding (default: false)",
+    help="Storage is initialized before seeding (default: false)",
 )
 def seed_command(init):
     asyncio.run(_seed_command(init))
 
 
 async def _upgrade_command():
-    click.echo("Upgrading store to latest version")
+    click.echo("Upgrading storage to latest version")
     await actions.upgrade()
     click.echo("Upgrade finished")
 
 
-@click.command(name="upgrade", help="Upgrade store to latest version")
+@click.command(name="upgrade", help="Upgrade storage to latest version")
 def upgrade_command():
     asyncio.run(_upgrade_command())
 
 
-store.add_command(init_command)
-store.add_command(seed_command)
-store.add_command(upgrade_command)
+storage.add_command(init_command)
+storage.add_command(seed_command)
+storage.add_command(upgrade_command)
