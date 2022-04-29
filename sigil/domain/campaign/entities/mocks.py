@@ -1,8 +1,10 @@
+from uuid import UUID
+
 from faker import Faker
 
 from sigil.settings import ANON_UUID
 
-from .base import Campaign
+from . import Campaign
 
 fake = Faker()
 
@@ -10,7 +12,7 @@ fake = Faker()
 def mock_campaign(i=0) -> Campaign:
     return Campaign(
         name=f"Test Campaign #{i}",
-        user_id=ANON_UUID,
+        user_id=UUID(ANON_UUID),
         description=fake.paragraph(),
         notes=fake.paragraph(),
     )
