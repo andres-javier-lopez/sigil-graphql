@@ -12,7 +12,7 @@ dirname = path.dirname(__file__)
 alembic_ini = path.join(dirname, 'alembic.ini')
 
 
-def run_stamp(connection, cfg):
+def _run_stamp(connection, cfg):
     cfg.attributes['connection'] = connection
     command.stamp(cfg, 'head')
 
@@ -23,12 +23,24 @@ async def init_storage():
         await conn.run_sync(Base.metadata.create_all)
 
         alembic_cfg = Config(alembic_ini)
-        await conn.run_sync(run_stamp, alembic_cfg)
+        await conn.run_sync(_run_stamp, alembic_cfg)
 
 
-def seed_stores(func):
+def _run_upgrade(connection, cfg):
+    cfg.attributes["connection"] = connection
+    command.upgrade(cfg, "head")
+
+
+async def upgrade_storage():
+    async with engine.begin() as conn:
+        alembic_cfg = Config(alembic_ini)
+        await conn.run_sync(_run_upgrade, alembic_cfg)
+
+
+def include_storages(func):
+    """Decorator that provides the storages to be seeded"""
     @wraps(func)
-    async def _seed_with_stores(*args, **kwargs):
+    async def _include_storages(*args, **kwargs):
         async with async_session() as session:
             async with session.begin():
                 stores = {
@@ -39,4 +51,4 @@ def seed_stores(func):
                 await session.commit()
         await engine.dispose()
 
-    return _seed_with_stores
+    return _include_storages

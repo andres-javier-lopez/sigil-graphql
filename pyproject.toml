@@ -14,6 +14,7 @@ SQLAlchemy = "^1.4.35"
 alembic = "^1.7.7"
 asyncpg = "^0.25.0"
 Faker = "^13.4.0"
+click = "^8.1.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
