@@ -28,7 +28,11 @@ async def _seed_command(init):
 
 
 @click.command(name="seed", help="Add initial data to system")
-@click.option("--init/--no-init", default=False, help="Store is initialized before seeding (default: false)")
+@click.option(
+    "--init/--no-init",
+    default=False,
+    help="Store is initialized before seeding (default: false)",
+)
 def seed_command(init):
     asyncio.run(_seed_command(init))
 

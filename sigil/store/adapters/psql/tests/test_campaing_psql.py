@@ -14,9 +14,9 @@ async def test_campaign_store(psql_session, mock_campaign: Campaign):
     campaign = await store.get(mock_campaign.uuid)
     assert campaign == mock_campaign
 
-    campaign.name = 'New name'
+    campaign.name = "New name"
     await store.save(campaign)
-    new_campaign =  await store.get(campaign.uuid)
+    new_campaign = await store.get(campaign.uuid)
     assert campaign == new_campaign
 
     await store.save_all([mock_campaign])

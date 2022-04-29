@@ -10,8 +10,9 @@ logger = logging.getLogger(__name__)
 query = QueryType()
 
 
-@query.field('version')
+@query.field("version")
 async def version_resolver(*_):
     return __version__
 
-query.set_field('campaigns', campaigns_resolver)
+
+query.set_field("campaigns", campaigns_resolver)

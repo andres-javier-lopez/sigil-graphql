@@ -5,8 +5,8 @@ from typing import ForwardRef, List, Optional
 
 from pydantic import UUID4, BaseModel, Field, HttpUrl
 
-Party = ForwardRef('Party')
-PlayerCharacter = ForwardRef('PlayerCharacter')
+Party = ForwardRef("Party")
+PlayerCharacter = ForwardRef("PlayerCharacter")
 
 
 class Campaign(BaseModel):

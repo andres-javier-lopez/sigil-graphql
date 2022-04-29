@@ -16,9 +16,7 @@ class CampaingStorePsql(BaseCampaignStore):
     async def list(self) -> List[Campaign]:
         stmt = select(CampaignModel)
         result = await self.session.execute(stmt)
-        campaings = [
-            Campaign.from_orm(row) for row in result.scalars()
-        ]
+        campaings = [Campaign.from_orm(row) for row in result.scalars()]
         return campaings
 
     async def get(self, uuid: UUID4) -> Optional[Campaign]:

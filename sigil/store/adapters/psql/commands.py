@@ -9,12 +9,12 @@ from sigil.store.adapters.psql.models.base import Base
 from sigil.store.interfaces import CampaignStore
 
 dirname = path.dirname(__file__)
-alembic_ini = path.join(dirname, 'alembic.ini')
+alembic_ini = path.join(dirname, "alembic.ini")
 
 
 def _run_stamp(connection, cfg):
-    cfg.attributes['connection'] = connection
-    command.stamp(cfg, 'head')
+    cfg.attributes["connection"] = connection
+    command.stamp(cfg, "head")
 
 
 async def init_storage():
@@ -39,6 +39,7 @@ async def upgrade_storage():
 
 def include_storages(func):
     """Decorator that provides the storages to be seeded"""
+
     @wraps(func)
     async def _include_storages(*args, **kwargs):
         async with async_session() as session:

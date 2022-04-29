@@ -31,3 +31,6 @@ build-backend = "poetry.core.masonry.api"
 profile = "black"
 skip_glob = ["sigil/store/adapters/psql/alembic/versions/*"]
 src_paths = ["sigil"]
+
+[tool.black]
+extend-exclude = "sigil/store/adapters/psql/alembic/versions/*"
