@@ -1,17 +1,17 @@
-from sigil.domain.campaign.entities import Campaign
-from sigil.settings import ANON_UUID
+from sigil.domain.campaign.entities import Campaign, PlayerCharacter, mocks
 
 
 def test_campaign():
-    campaign = Campaign(
-        name="Test",
-        user_id=ANON_UUID,
-        description="This is a test",
-        notes="notes",
-        parties=[],
-        player_characters=[],
-    )
+    campaign = mocks.mock_campaign()
 
     assert campaign
     assert campaign.uuid
-    assert campaign.name == "Test"
+    assert isinstance(campaign, Campaign)
+
+
+def test_player_character(mock_campaign):
+    player_character = mocks.mock_player_character(mock_campaign)
+
+    assert player_character
+    assert player_character.uuid
+    assert isinstance(player_character, PlayerCharacter)
