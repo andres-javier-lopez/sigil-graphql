@@ -1,3 +1,4 @@
+import logging
 from typing import List, Optional
 
 from pydantic import UUID4
@@ -8,16 +9,21 @@ from sigil.storage.adapters.psql import select
 from sigil.storage.adapters.psql.models import CampaignModel
 from sigil.storage.domain.campaign import BaseCampaignStorage
 
+logger = logging.getLogger(__name__)
 
-class CampaingStoragePsql(BaseCampaignStorage):
+
+class CampaignStoragePsql(BaseCampaignStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def list(self) -> List[Campaign]:
+    async def list(self, filter: dict = None) -> List[Campaign]:
         stmt = select(CampaignModel)
+        if filter:
+            stmt = stmt.filter_by(**filter)
+        logger.info(stmt)
         result = await self.session.execute(stmt)
-        campaings = [Campaign.from_orm(row) for row in result.scalars()]
-        return campaings
+        campaigns = [Campaign.from_orm(row) for row in result.scalars()]
+        return campaigns
 
     async def get(self, uuid: UUID4) -> Optional[Campaign]:
         result = await self.session.get(CampaignModel, uuid)

@@ -13,3 +13,7 @@ DB_TEST_PASSWORD = os.getenv("DB_TEST_PASSWORD")
 DB_TEST_NAME = os.getenv("DB_TEST_NAME")
 DB_TEST_HOST = os.getenv("DB_TEST_HOST")
 DB_TEST_PORT = os.getenv("DB_TEST_PORT", 0)
+
+ANON_UUID = os.environ["ANON_UUID"]
+USER_ID_HEADER = os.getenv("USER_ID_HEADER", "User-Id")
+ANON_USER_ENABLED = os.getenv("ANON_USER_ENABLED", "").lower() == "true"

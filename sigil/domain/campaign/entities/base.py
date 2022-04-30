@@ -11,6 +11,7 @@ PlayerCharacter = ForwardRef("PlayerCharacter")
 
 class Campaign(BaseModel):
     uuid: UUID4 = Field(default_factory=uuid4)
+    user_id: UUID4
     name: str
     description: Optional[str]
     notes: Optional[str]
