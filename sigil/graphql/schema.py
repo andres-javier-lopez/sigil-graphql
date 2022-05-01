@@ -7,6 +7,7 @@ from ariadne import (
 )
 
 from sigil.domain import campaign, town
+from sigil.domain.campaign.resolvers import campaign_type
 
 from .resolvers import query
 
@@ -23,5 +24,6 @@ schema = make_executable_schema(
         town.type_defs,
     ],
     query,
+    campaign_type,
     snake_case_fallback_resolvers,
 )

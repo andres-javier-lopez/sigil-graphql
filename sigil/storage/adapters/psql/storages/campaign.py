@@ -74,7 +74,6 @@ class PlayerCharacterStoragePsql(BasePlayerCharacterStorage):
         return None
 
     async def save(self, entity: PlayerCharacter):
-        logger.info(f"saving {entity}")
         model: PlayerCharacterModel = await self.session.get(
             PlayerCharacterModel, entity.uuid
         )

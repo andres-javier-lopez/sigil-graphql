@@ -18,9 +18,6 @@ class CampaignModel(Base, EntityModel):
     name = Column(String, nullable=False)
     description = Column(TEXT)
     notes = Column(TEXT)
-    player_characters = relationship(
-        "PlayerCharacterModel", back_populates="campaign", lazy="noload"
-    )
 
     # Required fields when getting from pydantic
     db_fields = {"uuid", "user_id", "name", "description", "notes"}
@@ -48,9 +45,7 @@ class PlayerCharacterModel(Base, EntityModel):
         ForeignKey("campaigns.uuid"),
         nullable=False,
     )
-    campaign = relationship(
-        "CampaignModel", back_populates="player_characters", lazy="selectin"
-    )
+    campaign = relationship("CampaignModel", lazy="selectin")
 
     # Required fields when getting from pydantic
     db_fields = {
