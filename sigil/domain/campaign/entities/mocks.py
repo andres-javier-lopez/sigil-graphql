@@ -35,4 +35,4 @@ def mock_player_character(campaign: Campaign, i=0) -> PlayerCharacter:
 
 
 def mock_player_characters(campaign: Campaign, number=1) -> list[PlayerCharacter]:
-    return [mock_player_character(i) for i in range(number)]
+    return [mock_player_character(campaign, i) for i in range(number)]

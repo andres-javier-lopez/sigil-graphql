@@ -42,6 +42,10 @@ class PlayerCharacter(BaseModel):
     campaign: Campaign
     party: Optional[Party]
 
+    @property
+    def campaign_id(self):
+        return self.campaign.uuid
+
     class Config:
         orm_mode = True
 
