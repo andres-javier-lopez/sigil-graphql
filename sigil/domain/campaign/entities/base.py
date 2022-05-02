@@ -33,13 +33,21 @@ class Party(BaseModel):
 
 class PlayerCharacter(BaseModel):
     uuid: UUID4 = Field(default_factory=uuid4)
+    user_id: UUID4
     name: str
     description: Optional[str]
     notes: Optional[str]
     player: Optional[str]
     uri: Optional[HttpUrl]
-    campalgn: Campaign
+    campaign: Campaign
     party: Optional[Party]
+
+    @property
+    def campaign_id(self):
+        return self.campaign.uuid
+
+    class Config:
+        orm_mode = True
 
 
 Campaign.update_forward_refs()
