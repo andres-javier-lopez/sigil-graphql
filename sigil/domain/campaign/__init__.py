@@ -1,3 +1,1 @@
-from . import schema
-
-type_defs = schema.type_defs
+from .schema import campaign_type, type_defs
