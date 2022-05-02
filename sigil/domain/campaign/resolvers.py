@@ -3,11 +3,15 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from sigil.auth.utils import get_user_id
 from sigil.domain.campaign.actions import CampaignManager, PlayerCharacterManager
+from sigil.domain.town.resolvers import player_character_relationship_resolver
 from sigil.graphql.utils import get_request
 from sigil.storage.adapters.psql import async_session
 from sigil.storage.interfaces import CampaignStorage, PlayerCharacterStorage
 
 campaign_type = ObjectType("Campaign")
+player_character_type = ObjectType("PlayerCharacter")
+
+player_character_type.set_field("relationships", player_character_relationship_resolver)
 
 
 async def campaigns_resolver(_, info: GraphQLResolveInfo):

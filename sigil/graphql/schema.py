@@ -7,7 +7,7 @@ from ariadne import (
 )
 
 from sigil.domain import campaign, town
-from sigil.domain.campaign.resolvers import campaign_type
+from sigil.domain.campaign.resolvers import campaign_type, player_character_type
 
 from .resolvers import query
 
@@ -25,5 +25,7 @@ schema = make_executable_schema(
     ],
     query,
     campaign_type,
+    player_character_type,
+    town.character_union,
     snake_case_fallback_resolvers,
 )

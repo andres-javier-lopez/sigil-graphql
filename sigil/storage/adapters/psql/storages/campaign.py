@@ -1,5 +1,5 @@
 import logging
-from typing import Iterable, List, Optional
+from typing import List, Optional
 
 from pydantic import UUID4
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -96,12 +96,12 @@ class PlayerCharacterStoragePsql(BasePlayerCharacterStorage):
         stmt = select(RelationshipModel).filter(
             RelationshipModel.player_character_id == entity.uuid
         )
-        relationships: Iterable[RelationshipModel] = await self.session.execute(stmt)
+        result = await self.session.execute(stmt)
 
         relationship_data = {re.character.uuid: re for re in entity.relationships}
 
         # Update existing relationship
-        for relationship in relationships:
+        for relationship in result.scalars():
             character_uuid = relationship.character_id
             if character_uuid in relationship_data:
                 relationship.status = relationship_data[character_uuid].status
