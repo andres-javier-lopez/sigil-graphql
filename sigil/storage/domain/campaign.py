@@ -5,6 +5,7 @@ from pydantic import UUID4
 
 from sigil.domain.campaign.entities import Campaign, PlayerCharacter
 from sigil.domain.campaign.entities.mocks import mock_campaigns, mock_player_characters
+from sigil.domain.town.entities.base import Relationship, RelationshipStatus
 from sigil.storage.base import BaseStorage
 
 
@@ -54,5 +55,16 @@ async def seed_player_characters(
     storage: BasePlayerCharacterStorage, campaign: Campaign, number=4
 ) -> List[PlayerCharacter]:
     player_characters = mock_player_characters(campaign, number=number)
+    if len(player_characters) > 1:
+        for current_player in player_characters:
+            for player in player_characters:
+                if player.uuid != current_player.uuid:
+                    current_player.relationships.append(
+                        Relationship(
+                            character=player,
+                            status=RelationshipStatus.FRIENDLY,
+                            notes="friend",
+                        )
+                    )
     await storage.save_all(player_characters)
     return player_characters

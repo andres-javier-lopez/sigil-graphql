@@ -1,12 +1,13 @@
 import logging
-from typing import List, Optional
+from typing import Iterable, List, Optional
 
 from pydantic import UUID4
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sigil.domain.campaign.entities import Campaign, PlayerCharacter
-from sigil.storage.adapters.psql import select
+from sigil.storage.adapters.psql import delete, select
 from sigil.storage.adapters.psql.models import CampaignModel, PlayerCharacterModel
+from sigil.storage.adapters.psql.models.campaign import Character, RelationshipModel
 from sigil.storage.domain.campaign import (
     BaseCampaignStorage,
     BasePlayerCharacterStorage,
@@ -83,6 +84,58 @@ class PlayerCharacterStoragePsql(BasePlayerCharacterStorage):
             model.set_entity(entity)
         self.session.add(model)
         await self.session.flush()
+
+        await self.add_update_relationships(entity)
+
+    async def add_update_relationships(self, entity: PlayerCharacter):
+        """Add new relationship or update existing ones.
+
+        We don't delete relationships here because the relationship list doesn't
+        have to be up to date in the entity.
+        """
+        stmt = select(RelationshipModel).filter(
+            RelationshipModel.player_character_id == entity.uuid
+        )
+        relationships: Iterable[RelationshipModel] = await self.session.execute(stmt)
+
+        relationship_data = {re.character.uuid: re for re in entity.relationships}
+
+        # Update existing relationship
+        for relationship in relationships:
+            character_uuid = relationship.character_id
+            if character_uuid in relationship_data:
+                relationship.status = relationship_data[character_uuid].status
+                relationship.notes = relationship_data[character_uuid].notes
+                del relationship_data[character_uuid]
+
+        if relationship_data:  # There are new relationships leftover
+            for uuid, relationship in relationship_data.items():
+                if isinstance(relationship.character, PlayerCharacter):
+                    character_entity = Character.PlayerCharacter
+                else:
+                    raise ValueError(
+                        f"{relationship.character.__class__} is not a valid character"
+                    )
+                relationship_model = RelationshipModel(
+                    player_character_id=entity.uuid,
+                    character_id=uuid,
+                    character_entity=character_entity,
+                    status=relationship.status,
+                    notes=relationship.notes,
+                )
+                self.session.add(relationship_model)
+
+        await self.session.flush()
+
+    async def delete_relationship(
+        self, player_character_id: UUID4, character_id: UUID4
+    ):
+        stmt = delete(RelationshipModel).where(
+            RelationshipModel.player_character_id == player_character_id,
+            RelationshipModel.character_id == character_id,
+        )
+        logger.info(stmt)
+        await self.session.execute(stmt)
 
     async def save_all(self, entities: List[PlayerCharacter]):
         for entity in entities:
