@@ -6,7 +6,8 @@ from ariadne import (
     snake_case_fallback_resolvers,
 )
 
-from sigil.domain import campaign, town
+from sigil.domain.campaign import schema as campaign
+from sigil.domain.town import schema as town
 
 from .resolvers import query
 
