@@ -1,1 +1,1 @@
-from .campaign import CampaignStorage, PlayerCharacterStorage
+from .campaign import CampaignStorage, PartyStorage, PlayerCharacterStorage

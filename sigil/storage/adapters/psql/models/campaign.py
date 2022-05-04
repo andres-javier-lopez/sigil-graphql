@@ -100,6 +100,14 @@ class PartyModel(Base, EntityModel):
         lazy="noload",
     )
 
+    db_fields = {
+        "uuid",
+        "name",
+        "description",
+        "notes",
+        "campaign_id",
+    }
+
     @classmethod
     def from_entity(cls, entity: Party) -> PartyModel:
         return super().from_entity(entity)

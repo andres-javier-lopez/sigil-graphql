@@ -6,7 +6,11 @@ from alembic.config import Config
 
 from sigil.storage.adapters.psql import async_session, engine
 from sigil.storage.adapters.psql.models.base import Base
-from sigil.storage.interfaces import CampaignStorage, PlayerCharacterStorage
+from sigil.storage.adapters.psql.storages import (
+    CampaignStorage,
+    PartyStorage,
+    PlayerCharacterStorage,
+)
 
 dirname = path.dirname(__file__)
 alembic_ini = path.join(dirname, "alembic.ini")
@@ -47,6 +51,7 @@ def include_storages(func):
                 storages = {
                     CampaignStorage.__name__: CampaignStorage(session),
                     PlayerCharacterStorage.__name__: PlayerCharacterStorage(session),
+                    PartyStorage.__name__: PartyStorage(session),
                 }
                 await func(*args, **kwargs, storages=storages)
 

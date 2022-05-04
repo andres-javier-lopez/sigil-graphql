@@ -30,6 +30,13 @@ class Party(BaseModel):
     campaign: Campaign
     player_characters: List[PlayerCharacter] = []
 
+    @property
+    def campaign_id(self):
+        return self.campaign.uuid
+
+    class Config:
+        orm_mode = True
+
 
 class PlayerCharacter(BaseModel):
     uuid: UUID4 = Field(default_factory=uuid4)

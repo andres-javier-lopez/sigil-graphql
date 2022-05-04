@@ -3,8 +3,8 @@ from typing import List, Optional
 
 from pydantic import UUID4
 
-from sigil.domain.entities import Campaign, PlayerCharacter
-from sigil.domain.mocks import mock_campaigns, mock_player_characters
+from sigil.domain.entities import Campaign, Party, PlayerCharacter
+from sigil.domain.mocks import mock_campaigns, mock_party, mock_player_characters
 from sigil.storage.base import BaseStorage
 
 
@@ -56,3 +56,35 @@ async def seed_player_characters(
     player_characters = mock_player_characters(campaign, number=number)
     await storage.save_all(player_characters)
     return player_characters
+
+
+class BasePartyStorage(BaseStorage):
+    @abstractmethod
+    async def list(self, filter: dict = None) -> List[Party]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get(self, uuid: UUID4) -> Optional[Party]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def save(self, entity: Party):
+        raise NotImplementedError
+
+    @abstractmethod
+    async def remove_player_character(self, uuid: UUID4, player_character_id: UUID4):
+        raise NotImplementedError
+
+    @abstractmethod
+    async def save_all(self, entities: List[Party]):
+        raise NotImplementedError
+
+
+async def seed_party(
+    storage: BasePartyStorage,
+    campaign: Campaign,
+    player_characters: list[PlayerCharacter],
+):
+    party = mock_party(campaign, player_characters)
+    await storage.save(party)
+    return party
