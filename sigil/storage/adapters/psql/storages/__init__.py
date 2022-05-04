@@ -1,1 +1,1 @@
-from .campaign import CampaignStoragePsql, PlayerCharacterStoragePsql
+from .campaign import CampaignStorage, PlayerCharacterStorage

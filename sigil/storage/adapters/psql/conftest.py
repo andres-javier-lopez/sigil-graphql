@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from sigil import settings
 from sigil.storage.adapters.psql import create_connection_string
-from sigil.storage.adapters.psql.models import Base
+from sigil.storage.adapters.psql.models.base import Base
 
 
 @pytest.fixture

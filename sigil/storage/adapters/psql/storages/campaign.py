@@ -15,7 +15,7 @@ from sigil.storage.domain.campaign import (
 logger = logging.getLogger(__name__)
 
 
-class CampaignStoragePsql(BaseCampaignStorage):
+class CampaignStorage(BaseCampaignStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 
@@ -53,7 +53,7 @@ class CampaignStoragePsql(BaseCampaignStorage):
         await self.session.delete(model)
 
 
-class PlayerCharacterStoragePsql(BasePlayerCharacterStorage):
+class PlayerCharacterStorage(BasePlayerCharacterStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 
