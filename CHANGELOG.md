@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+* Add parties
+* Add player characters
 * Read a user id in request headers
 * Add marker to skip database tests
 ### Changed
