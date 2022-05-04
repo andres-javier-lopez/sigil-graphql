@@ -1,8 +1,8 @@
 import pytest
 
-from sigil.domain.campaign.entities import mocks as campaign_mocks
+from sigil.domain import mocks
 
 
 @pytest.fixture
 def mock_campaign():
-    return campaign_mocks.mock_campaign()
+    return mocks.mock_campaign()

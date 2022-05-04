@@ -4,7 +4,7 @@ from typing import List, Optional
 from pydantic import UUID4
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sigil.domain.campaign.entities import Campaign, PlayerCharacter
+from sigil.domain.entities import Campaign, PlayerCharacter
 from sigil.storage.adapters.psql import select
 from sigil.storage.adapters.psql.models import CampaignModel, PlayerCharacterModel
 from sigil.storage.domain.campaign import (
@@ -15,7 +15,7 @@ from sigil.storage.domain.campaign import (
 logger = logging.getLogger(__name__)
 
 
-class CampaignStoragePsql(BaseCampaignStorage):
+class CampaignStorage(BaseCampaignStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 
@@ -53,7 +53,7 @@ class CampaignStoragePsql(BaseCampaignStorage):
         await self.session.delete(model)
 
 
-class PlayerCharacterStoragePsql(BasePlayerCharacterStorage):
+class PlayerCharacterStorage(BasePlayerCharacterStorage):
     def __init__(self, session: AsyncSession):
         self.session = session
 

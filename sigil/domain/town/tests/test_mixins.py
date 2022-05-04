@@ -1,4 +1,4 @@
-from sigil.domain.campaign.entities import Campaign
+from sigil.domain.entities import Campaign
 from sigil.domain.town.entities import Hub
 from sigil.settings import ANON_UUID
 

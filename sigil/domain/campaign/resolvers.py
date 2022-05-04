@@ -1,4 +1,5 @@
 from graphql import GraphQLResolveInfo
+
 from sigil.auth.utils import get_user_id
 from sigil.domain.campaign.actions import CampaignManager, PlayerCharacterManager
 from sigil.graphql.utils import get_request

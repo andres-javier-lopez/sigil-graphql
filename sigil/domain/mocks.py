@@ -2,9 +2,8 @@ from uuid import UUID
 
 from faker import Faker
 
+from sigil.domain.entities import Campaign, PlayerCharacter
 from sigil.settings import ANON_UUID
-
-from . import Campaign, PlayerCharacter
 
 fake = Faker()
 
