@@ -2,6 +2,7 @@ import logging
 from typing import List, Optional
 
 from pydantic import UUID4
+from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sigil.domain.entities import Campaign, Party, PlayerCharacter
@@ -27,16 +28,22 @@ class CampaignStorage(BaseCampaignStorage):
     async def list(self, filter: dict = None) -> List[Campaign]:
         stmt = select(CampaignModel)
         if filter:
-            stmt = stmt.filter_by(**filter)
+            for keyword, value in filter.items():
+                if keyword == self.FILTER.USER:
+                    stmt = stmt.filter(CampaignModel.user_id == value)
         logger.info(stmt)
-        result = await self.session.execute(stmt)
-        campaigns = [Campaign.from_orm(row) for row in result.scalars()]
-        return campaigns
+        result: Result = await self.session.execute(stmt)
+        rows = result.scalars()
+        if rows:
+            campaigns = [Campaign.from_orm(row) for row in rows]
+            return campaigns
+
+        return []
 
     async def get(self, uuid: UUID4) -> Optional[Campaign]:
-        result = await self.session.get(CampaignModel, uuid)
-        if result:
-            return Campaign.from_orm(result)
+        model = await self.session.get(CampaignModel, uuid)
+        if model:
+            return Campaign.from_orm(model)
 
         return None
 
@@ -65,16 +72,28 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
     async def list(self, filter: dict = None) -> List[PlayerCharacter]:
         stmt = select(PlayerCharacterModel)
         if filter:
-            stmt = stmt.filter_by(**filter)
+            for keyword, value in filter.items():
+                if keyword == self.FILTER.USER:
+                    stmt = stmt.filter(PlayerCharacterModel.user_id == value)
+                elif keyword == self.FILTER.CAMPAIGN:
+                    stmt = stmt.filter(PlayerCharacterModel.campaign_id == value)
+                elif keyword == self.FILTER.PARTY:
+                    stmt = stmt.filter(
+                        PlayerCharacterModel.parties.any(PartyModel.uuid == value)
+                    )
         logger.info(stmt)
-        result = await self.session.execute(stmt)
-        player_characters = [PlayerCharacter.from_orm(row) for row in result.scalars()]
-        return player_characters
+        result: Result = await self.session.execute(stmt)
+        rows = result.scalars()
+        if rows:
+            player_characters = [PlayerCharacter.from_orm(row) for row in rows]
+            return player_characters
+
+        return []
 
     async def get(self, uuid: UUID4) -> Optional[PlayerCharacter]:
-        result = await self.session.get(PlayerCharacterModel, uuid)
-        if result:
-            return PlayerCharacter.from_orm(result)
+        model = await self.session.get(PlayerCharacterModel, uuid)
+        if model:
+            return PlayerCharacter.from_orm(model)
 
         return None
 
@@ -105,16 +124,28 @@ class PartyStorage(BasePartyStorage):
     async def list(self, filter: dict = None) -> List[Party]:
         stmt = select(PartyModel)
         if filter:
-            stmt = stmt.filter_by(**filter)
+            for keyword, value in filter.items():
+                if keyword == self.FILTER.CAMPAIGN:
+                    stmt = stmt.filter(PartyModel.campaign_id == value)
+                elif keyword == self.FILTER.PLAYER_CHARACTER:
+                    stmt = stmt.filter(
+                        PartyModel.player_characters.any(
+                            PlayerCharacterModel.uuid == value
+                        )
+                    )
         logger.info(stmt)
-        result = await self.session.execute(stmt)
-        parties = [Party.from_orm(row) for row in result.scalar()]
-        return parties
+        result: Result = await self.session.execute(stmt)
+        rows = result.scalars()
+        if rows:
+            parties = [Party.from_orm(row) for row in rows]
+            return parties
+
+        return []
 
     async def get(self, uuid: UUID4) -> Optional[Party]:
-        result = await self.session.get(PartyModel, uuid)
-        if result:
-            return Party.from_orm(result)
+        model = await self.session.get(PartyModel, uuid)
+        if model:
+            return Party.from_orm(model)
 
         return None
 

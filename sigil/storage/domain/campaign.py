@@ -1,5 +1,6 @@
 from abc import abstractmethod
-from typing import List, Optional
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 from pydantic import UUID4
 
@@ -9,8 +10,11 @@ from sigil.storage.base import BaseStorage
 
 
 class BaseCampaignStorage(BaseStorage):
+    class FILTER(Enum):
+        USER = "USER"
+
     @abstractmethod
-    async def list(self, filter: dict = None) -> List[Campaign]:
+    async def list(self, filter: Dict[FILTER, Any] = None) -> List[Campaign]:
         raise NotImplementedError
 
     @abstractmethod
@@ -33,8 +37,13 @@ async def seed_campaigns(storage: BaseCampaignStorage, number=5) -> List[Campaig
 
 
 class BasePlayerCharacterStorage(BaseStorage):
+    class FILTER(Enum):
+        USER = "USER"
+        CAMPAIGN = "CAMPAIGN"
+        PARTY = "PARTY"
+
     @abstractmethod
-    async def list(self, filter: dict = None) -> List[PlayerCharacter]:
+    async def list(self, filter: Dict[FILTER, Any] = None) -> List[PlayerCharacter]:
         raise NotImplementedError
 
     @abstractmethod
@@ -59,8 +68,12 @@ async def seed_player_characters(
 
 
 class BasePartyStorage(BaseStorage):
+    class FILTER(Enum):
+        CAMPAIGN = "CAMPAIGN"
+        PLAYER_CHARACTER = "PLAYER_CHARACTER"
+
     @abstractmethod
-    async def list(self, filter: dict = None) -> List[Party]:
+    async def list(self, filter: Dict[FILTER, Any] = None) -> List[Party]:
         raise NotImplementedError
 
     @abstractmethod
