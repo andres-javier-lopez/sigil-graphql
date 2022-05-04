@@ -6,7 +6,7 @@ from sqlalchemy import engine_from_config, pool
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from sigil.storage.adapters.psql import get_connection_string
-from sigil.storage.adapters.psql.models import Base
+from sigil.storage.adapters.psql.models.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
