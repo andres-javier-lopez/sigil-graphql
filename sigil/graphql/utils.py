@@ -1,6 +1,5 @@
-from starlette.requests import Request
-
 from graphql import GraphQLResolveInfo
+from starlette.requests import Request
 
 
 def get_request(info: GraphQLResolveInfo) -> Request:
