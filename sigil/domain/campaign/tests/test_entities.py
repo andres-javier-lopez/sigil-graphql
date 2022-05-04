@@ -1,4 +1,5 @@
-from sigil.domain.campaign.entities import Campaign, PlayerCharacter, mocks
+from sigil.domain import mocks
+from sigil.domain.campaign.entities import Campaign, PlayerCharacter
 
 
 def test_campaign():

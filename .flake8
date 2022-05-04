@@ -2,6 +2,7 @@
 max-line-length = 88
 per-file-ignores =
     # imported but unused
+    sigil/domain/entities.py: F401
     __init__.py: F401
     actions.py: F401
     interfaces.py: F401

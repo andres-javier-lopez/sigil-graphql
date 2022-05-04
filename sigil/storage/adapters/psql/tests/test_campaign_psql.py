@@ -1,6 +1,6 @@
 import pytest
 
-from sigil.domain.campaign.entities import Campaign
+from sigil.domain.entities import Campaign
 from sigil.storage.adapters.psql.storages.campaign import CampaignStoragePsql
 
 

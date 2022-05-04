@@ -4,8 +4,7 @@ from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.dialects.postgresql import TEXT, UUID
 from sqlalchemy.orm import relationship
 
-from sigil.domain.campaign.entities import Campaign
-from sigil.domain.campaign.entities.base import PlayerCharacter
+from sigil.domain.entities import Campaign, PlayerCharacter
 
 from .base import Base, EntityModel
 

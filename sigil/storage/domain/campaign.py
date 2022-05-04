@@ -3,8 +3,8 @@ from typing import List, Optional
 
 from pydantic import UUID4
 
-from sigil.domain.campaign.entities import Campaign, PlayerCharacter
-from sigil.domain.campaign.entities.mocks import mock_campaigns, mock_player_characters
+from sigil.domain.entities import Campaign, PlayerCharacter
+from sigil.domain.mocks import mock_campaigns, mock_player_characters
 from sigil.storage.base import BaseStorage
 
 
