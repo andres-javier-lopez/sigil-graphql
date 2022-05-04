@@ -40,7 +40,7 @@ class PlayerCharacter(BaseModel):
     player: Optional[str]
     uri: Optional[HttpUrl]
     campaign: Campaign
-    party: Optional[Party]
+    parties: List[Party] = []
 
     @property
     def campaign_id(self):

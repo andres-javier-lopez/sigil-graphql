@@ -1,1 +1,1 @@
-from .campaign import CampaignModel, PlayerCharacterModel
+from .campaign import CampaignModel, PartyModel, PlayerCharacterModel
