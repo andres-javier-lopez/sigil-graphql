@@ -35,7 +35,7 @@ class CampaignStorage(BaseCampaignStorage):
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
         if rows:
-            campaigns = [Campaign.from_orm(row) for row in rows]
+            campaigns = [row.get_entity() for row in rows]
             return campaigns
 
         return []
@@ -43,7 +43,7 @@ class CampaignStorage(BaseCampaignStorage):
     async def get(self, uuid: UUID4) -> Optional[Campaign]:
         model = await self.session.get(CampaignModel, uuid)
         if model:
-            return Campaign.from_orm(model)
+            return model.get_entity()
 
         return None
 
@@ -63,6 +63,7 @@ class CampaignStorage(BaseCampaignStorage):
     async def delete(self, uuid: UUID4):
         model = await self.session.get(CampaignModel, uuid)
         await self.session.delete(model)
+        await self.session.flush()
 
 
 class PlayerCharacterStorage(BasePlayerCharacterStorage):
@@ -85,7 +86,7 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
         if rows:
-            player_characters = [PlayerCharacter.from_orm(row) for row in rows]
+            player_characters = [row.get_entity() for row in rows]
             return player_characters
 
         return []
@@ -93,7 +94,7 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
     async def get(self, uuid: UUID4) -> Optional[PlayerCharacter]:
         model = await self.session.get(PlayerCharacterModel, uuid)
         if model:
-            return PlayerCharacter.from_orm(model)
+            return model.get_entity()
 
         return None
 
@@ -115,6 +116,7 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
     async def delete(self, uuid: UUID4):
         model = await self.session.get(PlayerCharacterModel, uuid)
         await self.session.delete(model)
+        await self.session.flush()
 
 
 class PartyStorage(BasePartyStorage):
@@ -137,7 +139,7 @@ class PartyStorage(BasePartyStorage):
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
         if rows:
-            parties = [Party.from_orm(row) for row in rows]
+            parties = [row.get_entity() for row in rows]
             return parties
 
         return []
@@ -145,7 +147,7 @@ class PartyStorage(BasePartyStorage):
     async def get(self, uuid: UUID4) -> Optional[Party]:
         model = await self.session.get(PartyModel, uuid)
         if model:
-            return Party.from_orm(model)
+            return model.get_entity()
 
         return None
 
@@ -180,3 +182,4 @@ class PartyStorage(BasePartyStorage):
     async def delete(self, uuid: UUID4):
         model = await self.session.get(PartyModel, uuid)
         await self.session.delete(model)
+        await self.session.flush()

@@ -28,6 +28,15 @@ class CampaignModel(Base, EntityModel):
     def set_entity(self, entity: Campaign):
         super().set_entity(entity)
 
+    def get_entity(self) -> Campaign:
+        return Campaign(
+            uuid=self.uuid,
+            user_id=self.user_id,
+            name=self.name,
+            description=self.description,
+            notes=self.notes,
+        )
+
 
 player_character_party_table = Table(
     "player_character_party",
@@ -80,6 +89,18 @@ class PlayerCharacterModel(Base, EntityModel):
     def set_entity(self, entity: PlayerCharacter):
         super().set_entity(entity)
 
+    def get_entity(self) -> PlayerCharacter:
+        return PlayerCharacter(
+            uuid=self.uuid,
+            user_id=self.user_id,
+            name=self.name,
+            description=self.description,
+            notes=self.notes,
+            player=self.player,
+            uri=self.uri,
+            campaign=self.campaign.get_entity(),
+        )
+
 
 class PartyModel(Base, EntityModel):
     __tablename__ = "parties"
@@ -114,3 +135,12 @@ class PartyModel(Base, EntityModel):
 
     def set_entity(self, entity: Party):
         return super().set_entity(entity)
+
+    def get_entity(self) -> Party:
+        return Party(
+            uuid=self.uuid,
+            name=self.name,
+            description=self.description,
+            notes=self.notes,
+            campaign=self.campaign.get_entity(),
+        )

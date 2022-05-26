@@ -64,14 +64,15 @@ def mock_party(mock_campaign, mock_player_characters):
 
 @pytest.fixture
 def mock_parties(mock_campaign, mock_party, n=2):
-    return [mock_party].extend(
-        [
+    return [
+        mock_party,
+        *[
             mocks.mock_party(
                 mock_campaign, mocks.mock_player_characters(mock_campaign, 3)
             )
             for _ in range(n)
-        ]
-    )
+        ],
+    ]
 
 
 @pytest.fixture

@@ -18,9 +18,6 @@ class Campaign(BaseModel):
     parties: List[Party] = []
     player_characters: List[PlayerCharacter] = []
 
-    class Config:
-        orm_mode = True
-
 
 class Party(BaseModel):
     uuid: UUID4 = Field(default_factory=uuid4)
@@ -33,9 +30,6 @@ class Party(BaseModel):
     @property
     def campaign_id(self):
         return self.campaign.uuid
-
-    class Config:
-        orm_mode = True
 
 
 class PlayerCharacter(BaseModel):
@@ -52,9 +46,6 @@ class PlayerCharacter(BaseModel):
     @property
     def campaign_id(self):
         return self.campaign.uuid
-
-    class Config:
-        orm_mode = True
 
 
 Campaign.update_forward_refs()
