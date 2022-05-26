@@ -1,27 +1,13 @@
 import pytest
 
 from sigil.domain.entities import Campaign, Party, PlayerCharacter
-from sigil.storage.adapters.psql.storages.campaign import (
-    CampaignStorage,
-    PartyStorage,
-    PlayerCharacterStorage,
+
+
+@pytest.mark.parametrize(
+    "adapter",
+    [pytest.param("psql", marks=pytest.mark.database)],
+    indirect=True,
 )
-from sigil.storage.adapters.psql.test_utils import psql_session
-
-
-@pytest.fixture
-async def db_session(request):
-    if request.config.getoption("--use-database"):
-        async with psql_session() as session:
-            yield session
-
-
-@pytest.fixture
-def campaign_storage(db_session):
-    return CampaignStorage(db_session)
-
-
-@pytest.mark.database
 async def test_campaign_storage(campaign_storage, mock_campaign: Campaign):
     await campaign_storage.save(mock_campaign)
 
@@ -44,21 +30,14 @@ async def test_campaign_storage(campaign_storage, mock_campaign: Campaign):
     assert campaign not in campaigns
 
 
-@pytest.fixture
-async def current_campaign(campaign_storage, mock_campaign):
-    await campaign_storage.save(mock_campaign)
-    return mock_campaign
-
-
-@pytest.fixture
-def player_character_storage(db_session):
-    return PlayerCharacterStorage(db_session)
-
-
-@pytest.mark.database
+@pytest.mark.parametrize(
+    "adapter",
+    [pytest.param("psql", marks=pytest.mark.database)],
+    indirect=True,
+)
+@pytest.mark.usefixtures("current_campaign")
 async def test_player_character_storage(
     player_character_storage,
-    current_campaign: Campaign,
     mock_player_character: PlayerCharacter,
     mock_player_characters: list[PlayerCharacter],
 ):
@@ -87,25 +66,15 @@ async def test_player_character_storage(
     assert player_character not in player_characters
 
 
-@pytest.fixture
-async def current_player_characters(
-    player_character_storage, current_campaign, mock_player_characters
-):
-    await player_character_storage.save_all(mock_player_characters)
-    return mock_player_characters
-
-
-@pytest.fixture
-def party_storage(db_session):
-    return PartyStorage(db_session)
-
-
-@pytest.mark.database
+@pytest.mark.parametrize(
+    "adapter",
+    [pytest.param("psql", marks=pytest.mark.database)],
+    indirect=True,
+)
+@pytest.mark.usefixtures("current_campaign")
 async def test_party_storage(
     party_storage,
     player_character_storage,
-    current_campaign: Campaign,
-    current_player_characters: list[PlayerCharacter],
     mock_party: Party,
     mock_parties: list[Party],
 ):
