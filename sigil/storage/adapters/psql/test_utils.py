@@ -1,4 +1,5 @@
-import pytest
+from contextlib import asynccontextmanager
+
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -7,7 +8,7 @@ from sigil.storage.adapters.psql import create_connection_string
 from sigil.storage.adapters.psql.models.base import Base
 
 
-@pytest.fixture
+@asynccontextmanager
 async def psql_session():
     engine = create_async_engine(
         create_connection_string(
@@ -26,6 +27,8 @@ async def psql_session():
     Session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
     session: AsyncSession = Session()
-    yield session
-    await session.rollback()
-    await session.close()
+    try:
+        yield session
+    finally:
+        await session.rollback()
+        await session.close()

@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Read a user id in request headers
 * Add marker to skip database tests
 ### Changed
+* Make storage tests standard
+* Move parsing logic away from entities
 * Improve project structure to avoid circular imports
 
 ## [0.3.0] - 2022-04-29
