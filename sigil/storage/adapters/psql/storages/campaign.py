@@ -41,24 +41,26 @@ class CampaignStorage(BaseCampaignStorage):
         return []
 
     async def get(self, uuid: UUID4) -> Optional[Campaign]:
-        model = await self.session.get(CampaignModel, uuid)
+        model: CampaignModel = await self.session.get(CampaignModel, uuid)
         if model:
             return model.get_entity()
 
         return None
 
-    async def save(self, entity: Campaign):
+    async def save(self, entity: Campaign, autoflush=True):
         model: CampaignModel = await self.session.get(CampaignModel, entity.uuid)
         if model is None:
             model = CampaignModel.from_entity(entity)
             self.session.add(model)
         else:
             model.set_entity(entity)
-        await self.session.flush()
+        if autoflush:
+            await self.session.flush()
 
     async def save_all(self, entities: List[Campaign]):
         for entity in entities:
-            await self.save(entity)
+            await self.save(entity, autoflush=False)
+        await self.session.flush()
 
     async def delete(self, uuid: UUID4):
         model = await self.session.get(CampaignModel, uuid)
@@ -92,13 +94,13 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
         return []
 
     async def get(self, uuid: UUID4) -> Optional[PlayerCharacter]:
-        model = await self.session.get(PlayerCharacterModel, uuid)
+        model: PlayerCharacterModel = await self.session.get(PlayerCharacterModel, uuid)
         if model:
             return model.get_entity()
 
         return None
 
-    async def save(self, entity: PlayerCharacter):
+    async def save(self, entity: PlayerCharacter, autoflush=True):
         model: PlayerCharacterModel = await self.session.get(
             PlayerCharacterModel, entity.uuid
         )
@@ -107,11 +109,13 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
             self.session.add(model)
         else:
             model.set_entity(entity)
-        await self.session.flush()
+        if autoflush:
+            await self.session.flush()
 
     async def save_all(self, entities: List[PlayerCharacter]):
         for entity in entities:
-            await self.save(entity)
+            await self.save(entity, autoflush=False)
+        await self.session.flush()
 
     async def delete(self, uuid: UUID4):
         model = await self.session.get(PlayerCharacterModel, uuid)
@@ -145,13 +149,13 @@ class PartyStorage(BasePartyStorage):
         return []
 
     async def get(self, uuid: UUID4) -> Optional[Party]:
-        model = await self.session.get(PartyModel, uuid)
+        model: PartyModel = await self.session.get(PartyModel, uuid)
         if model:
             return model.get_entity()
 
         return None
 
-    async def save(self, entity: Party):
+    async def save(self, entity: Party, autoflush=True):
         model: PartyModel = await self.session.get(PartyModel, entity.uuid)
         if model is None:
             model = PartyModel.from_entity(entity)
@@ -163,9 +167,16 @@ class PartyStorage(BasePartyStorage):
             player_character_model = await self.session.get(
                 PlayerCharacterModel, player_character.uuid
             )
-            model.player_characters.append(player_character_model)
+            if player_character_model:
+                model.player_characters.append(player_character_model)
+            else:
+                logger.warning(
+                    f"Tried to add unsaved character {player_character.uuid} "
+                    f"to party {entity.uuid}"
+                )
 
-        await self.session.flush()
+        if autoflush:
+            await self.session.flush()
 
     async def remove_player_character(self, uuid: UUID4, player_character_id: UUID4):
         party_model: PartyModel = await self.session.get(PartyModel, uuid)
@@ -177,7 +188,8 @@ class PartyStorage(BasePartyStorage):
 
     async def save_all(self, entities: List[Party]):
         for entity in entities:
-            await self.save(entity)
+            await self.save(entity, autoflush=False)
+        await self.session.flush()
 
     async def delete(self, uuid: UUID4):
         model = await self.session.get(PartyModel, uuid)

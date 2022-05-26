@@ -24,7 +24,9 @@ async def psql_session():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    Session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+    Session = sessionmaker(
+        engine, expire_on_commit=False, autoflush=False, class_=AsyncSession
+    )
 
     session: AsyncSession = Session()
     try:

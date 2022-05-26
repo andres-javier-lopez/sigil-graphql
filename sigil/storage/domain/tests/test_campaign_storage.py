@@ -78,6 +78,7 @@ async def test_party_storage(
     mock_party: Party,
     mock_parties: list[Party],
 ):
+    # save player characters first
     for party in mock_parties:
         await player_character_storage.save_all(party.player_characters)
 
