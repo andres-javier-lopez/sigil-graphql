@@ -24,6 +24,6 @@ schema = make_executable_schema(
         town.type_defs,
     ],
     query,
-    campaign.campaign_type,
+    *campaign.object_types,
     snake_case_fallback_resolvers,
 )

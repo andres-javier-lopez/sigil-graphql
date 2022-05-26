@@ -1,1 +1,5 @@
-from sigil.storage.adapters.psql.storages import CampaignStorage, PlayerCharacterStorage
+from sigil.storage.adapters.psql.storages import (
+    CampaignStorage,
+    PartyStorage,
+    PlayerCharacterStorage,
+)

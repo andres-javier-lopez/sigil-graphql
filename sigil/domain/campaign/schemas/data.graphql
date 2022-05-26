@@ -29,5 +29,5 @@ type PlayerCharacter implements DescriptableInterface {
     player: String
     uri: HTTPUrl
     campaign: Campaign!
-    party: Party
+    parties: [Party!]!
 }
