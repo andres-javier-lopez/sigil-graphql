@@ -28,9 +28,13 @@ class CampaignStorage(BaseCampaignStorage):
     async def list(self, filter: dict = None) -> List[Campaign]:
         stmt = select(CampaignModel)
         if filter:
-            for keyword, value in filter.items():
-                if keyword == self.FILTER.USER:
-                    stmt = stmt.filter(CampaignModel.user_id == value)
+            filter_func = {
+                self.FILTER.USER: lambda v: CampaignModel.user_id == v,
+            }
+
+            stmt = stmt.filter(
+                *[filter_func[keyword](value) for keyword, value in filter.items()]
+            )
         logger.info(stmt)
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
@@ -75,15 +79,17 @@ class PlayerCharacterStorage(BasePlayerCharacterStorage):
     async def list(self, filter: dict = None) -> List[PlayerCharacter]:
         stmt = select(PlayerCharacterModel)
         if filter:
-            for keyword, value in filter.items():
-                if keyword == self.FILTER.USER:
-                    stmt = stmt.filter(PlayerCharacterModel.user_id == value)
-                elif keyword == self.FILTER.CAMPAIGN:
-                    stmt = stmt.filter(PlayerCharacterModel.campaign_id == value)
-                elif keyword == self.FILTER.PARTY:
-                    stmt = stmt.filter(
-                        PlayerCharacterModel.parties.any(PartyModel.uuid == value)
-                    )
+            filter_func = {
+                self.FILTER.USER: lambda v: PlayerCharacterModel.user_id == v,
+                self.FILTER.CAMPAIGN: lambda v: PlayerCharacterModel.campaign_id == v,
+                self.FILTER.PARTY: lambda v: PlayerCharacterModel.parties.any(
+                    PartyModel.uuid == v
+                ),
+            }
+
+            stmt = stmt.filter(
+                *[filter_func[keyword](value) for keyword, value in filter.items()]
+            )
         logger.info(stmt)
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
@@ -130,15 +136,16 @@ class PartyStorage(BasePartyStorage):
     async def list(self, filter: dict = None) -> List[Party]:
         stmt = select(PartyModel)
         if filter:
-            for keyword, value in filter.items():
-                if keyword == self.FILTER.CAMPAIGN:
-                    stmt = stmt.filter(PartyModel.campaign_id == value)
-                elif keyword == self.FILTER.PLAYER_CHARACTER:
-                    stmt = stmt.filter(
-                        PartyModel.player_characters.any(
-                            PlayerCharacterModel.uuid == value
-                        )
-                    )
+            filter_func = {
+                self.FILTER.CAMPAIGN: lambda v: PartyModel.campaign_id == v,
+                self.FILTER.PLAYER_CHARACTER: lambda v: (
+                    PartyModel.player_characters.any(PlayerCharacterModel.uuid == v)
+                ),
+            }
+
+            stmt = stmt.filter(
+                *[filter_func[keyword](value) for keyword, value in filter.items()]
+            )
         logger.info(stmt)
         result: Result = await self.session.execute(stmt)
         rows = result.scalars()
