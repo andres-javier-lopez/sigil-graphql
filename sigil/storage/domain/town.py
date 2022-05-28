@@ -32,5 +32,5 @@ class BaseHubStorage(BaseStorage):
 
 async def seed_hubs(storage: BaseHubStorage, campaign: Campaign, number=2) -> List[Hub]:
     hubs = mock_hubs(campaign, number)
-    storage.save_all(hubs)
+    await storage.save_all(hubs)
     return hubs
