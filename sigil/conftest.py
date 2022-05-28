@@ -8,6 +8,7 @@ from sigil.storage.domain.campaign import (
     BasePartyStorage,
     BasePlayerCharacterStorage,
 )
+from sigil.storage.domain.town import BaseHubStorage
 
 
 def _pop_or_none(lst: list):
@@ -93,3 +94,13 @@ def mock_hub(mock_campaign):
 @pytest.fixture
 def mock_hubs(mock_campaign, mock_hub):
     return [mock_hub, *mocks.mock_hubs(mock_campaign, number=2)]
+
+
+@pytest.fixture
+def mock_hub_storage(mock_hubs):
+    storage = Mock(spec=BaseHubStorage)
+    storage.list.return_value = mock_hubs
+    storage.get.side_effect = lambda uuid: _pop_or_none(
+        [hub for hub in mock_hubs if hub.uuid == uuid]
+    )
+    return storage
