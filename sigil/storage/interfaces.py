@@ -49,4 +49,12 @@ class StorageManager:
     @asynccontextmanager
     async def start(cls):
         async with async_session() as session:
-            yield cls(session)
+            async with session.begin():
+                try:
+                    yield cls(session)
+                except Exception:
+                    await session.rollback()
+                else:
+                    await session.commit()
+                finally:
+                    await session.close()
