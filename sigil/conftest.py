@@ -83,3 +83,13 @@ def mock_party_storage(mock_parties):
         [p for p in mock_parties if p.uuid == uuid]
     )
     return storage
+
+
+@pytest.fixture
+def mock_hub(mock_campaign):
+    return mocks.mock_hub(mock_campaign)
+
+
+@pytest.fixture
+def mock_hubs(mock_campaign, mock_hub):
+    return [mock_hub, *mocks.mock_hubs(mock_campaign, number=2)]

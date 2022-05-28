@@ -1,6 +1,11 @@
 import pytest
 
 from sigil.domain.entities import Campaign, Party, PlayerCharacter
+from sigil.storage.domain.campaign import (
+    BaseCampaignStorage,
+    BasePartyStorage,
+    BasePlayerCharacterStorage,
+)
 
 
 @pytest.mark.parametrize(
@@ -8,7 +13,9 @@ from sigil.domain.entities import Campaign, Party, PlayerCharacter
     [pytest.param("psql", marks=pytest.mark.database)],
     indirect=True,
 )
-async def test_campaign_storage(campaign_storage, mock_campaign: Campaign):
+async def test_campaign_storage(
+    campaign_storage: BaseCampaignStorage, mock_campaign: Campaign
+):
     await campaign_storage.save(mock_campaign)
 
     campaigns = await campaign_storage.list()
@@ -37,7 +44,7 @@ async def test_campaign_storage(campaign_storage, mock_campaign: Campaign):
 )
 @pytest.mark.usefixtures("current_campaign")
 async def test_player_character_storage(
-    player_character_storage,
+    player_character_storage: BasePlayerCharacterStorage,
     mock_player_character: PlayerCharacter,
     mock_player_characters: list[PlayerCharacter],
 ):
@@ -73,8 +80,8 @@ async def test_player_character_storage(
 )
 @pytest.mark.usefixtures("current_campaign")
 async def test_party_storage(
-    party_storage,
-    player_character_storage,
+    party_storage: BasePartyStorage,
+    player_character_storage: BasePlayerCharacterStorage,
     mock_party: Party,
     mock_parties: list[Party],
 ):
