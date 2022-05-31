@@ -4,7 +4,7 @@ from sigil.storage.domain.campaign import (
     seed_player_characters,
 )
 from sigil.storage.domain.town import seed_hubs
-from sigil.storage.interfaces import StorageManager
+from sigil.storage.manager import StorageManager
 
 
 async def seed():

@@ -4,7 +4,7 @@ from sigil.auth.utils import get_user_id
 from sigil.domain.entities import Campaign
 from sigil.domain.town.actions import HubManager
 from sigil.graphql.utils import get_request
-from sigil.storage.interfaces import StorageManager
+from sigil.storage.manager import StorageManager
 
 
 async def campaign_hubs_resolver(campaign: Campaign, info: GraphQLResolveInfo):

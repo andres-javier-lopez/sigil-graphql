@@ -3,11 +3,7 @@
 from uuid import UUID
 
 from sigil.domain.entities import Campaign, Party, PlayerCharacter
-from sigil.storage.interfaces import (
-    CampaignStorage,
-    PartyStorage,
-    PlayerCharacterStorage,
-)
+from sigil.storage.manager import CampaignStorage, PartyStorage, PlayerCharacterStorage
 
 
 class CampaignManager:

@@ -8,7 +8,7 @@ from sigil.domain.campaign.actions import (
 )
 from sigil.domain.entities import Campaign, Party, PlayerCharacter
 from sigil.graphql.utils import get_request
-from sigil.storage.interfaces import StorageManager
+from sigil.storage.manager import StorageManager
 
 
 async def campaigns_resolver(_, info: GraphQLResolveInfo):
