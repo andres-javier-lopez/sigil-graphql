@@ -4,8 +4,10 @@ from sigil.storage.domain.campaign import (
     seed_party,
     seed_player_characters,
 )
+from sigil.storage.domain.town import seed_hubs
 from sigil.storage.interfaces import (
     CampaignStorage,
+    HubStorage,
     PartyStorage,
     PlayerCharacterStorage,
 )
@@ -19,3 +21,4 @@ async def seed(*, storages: dict = None):
             storages[PlayerCharacterStorage.__name__], campaign, number=4
         )
         await seed_party(storages[PartyStorage.__name__], campaign, player_characters)
+        await seed_hubs(storages[HubStorage.__name__], campaign)

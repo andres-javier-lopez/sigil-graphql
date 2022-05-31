@@ -8,6 +8,7 @@ from sigil.storage.adapters.psql import async_session, engine
 from sigil.storage.adapters.psql.models.base import Base
 from sigil.storage.adapters.psql.storages import (
     CampaignStorage,
+    HubStorage,
     PartyStorage,
     PlayerCharacterStorage,
 )
@@ -52,6 +53,7 @@ def include_storages(func):
                     CampaignStorage.__name__: CampaignStorage(session),
                     PlayerCharacterStorage.__name__: PlayerCharacterStorage(session),
                     PartyStorage.__name__: PartyStorage(session),
+                    HubStorage.__name__: HubStorage(session),
                 }
                 await func(*args, **kwargs, storages=storages)
 

@@ -1,7 +1,8 @@
 import pytest
 
-from sigil.storage.adapters.psql.storages.campaign import (
+from sigil.storage.adapters.psql.storages import (
     CampaignStorage,
+    HubStorage,
     PartyStorage,
     PlayerCharacterStorage,
 )
@@ -38,6 +39,12 @@ def player_character_storage(adapter, db_session):
 def party_storage(adapter, db_session):
     if adapter == "psql":
         return PartyStorage(db_session)
+
+
+@pytest.fixture
+def hub_storage(adapter, db_session):
+    if adapter == "psql":
+        return HubStorage(db_session)
 
 
 @pytest.fixture

@@ -2,7 +2,7 @@ from uuid import UUID
 
 from faker import Faker
 
-from sigil.domain.entities import Campaign, Party, PlayerCharacter
+from sigil.domain.entities import Campaign, Hub, Party, PlayerCharacter
 from sigil.settings import ANON_UUID
 
 fake = Faker()
@@ -45,3 +45,16 @@ def mock_party(campaign: Campaign, player_characters: list[PlayerCharacter]):
         campaign=campaign,
         player_characters=player_characters,
     )
+
+
+def mock_hub(campaign: Campaign):
+    return Hub(
+        campaign=campaign,
+        name=fake.city(),
+        description=fake.paragraph(),
+        notes=fake.paragraph(),
+    )
+
+
+def mock_hubs(campaign: Campaign, number=3):
+    return [mock_hub(campaign) for _ in range(number)]
