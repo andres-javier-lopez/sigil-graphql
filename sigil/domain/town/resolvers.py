@@ -11,7 +11,7 @@ async def campaign_hubs_resolver(campaign: Campaign, info: GraphQLResolveInfo):
     request = get_request(info)
     user_id = get_user_id(request)
 
-    async with StorageManager.start() as storages:
+    async with StorageManager.load() as storages:
         manager = HubManager(storages.hub_storage, user_id=user_id)
 
         return await manager.list_for_campaign(campaign)

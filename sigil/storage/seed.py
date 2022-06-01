@@ -8,7 +8,7 @@ from sigil.storage.manager import StorageManager
 
 
 async def seed():
-    async with StorageManager.start() as storages:
+    async with StorageManager.load() as storages:
         campaigns = await seed_campaigns(storages.campaign_storage, number=3)
         for campaign in campaigns:
             player_characters = await seed_player_characters(

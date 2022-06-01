@@ -29,14 +29,15 @@ class BaseStorage(abc.ABC):
 
 
 class BaseManager:
-    _storages = {}
-
     _storage_classes = {}
+
+    def __init__(self) -> None:
+        self._storages = {}
 
     def _init_storage(self, StorageClass):
         return StorageClass()
 
-    def __getattr__(self, name: str):
+    def __getattr__(self, name: str) -> BaseStorage:
         if name not in self._storage_classes:
             raise AttributeError(f"no storage called {name}")
 
@@ -47,5 +48,5 @@ class BaseManager:
 
     @classmethod
     @asynccontextmanager
-    async def start(cls):
+    async def load(cls):
         yield cls()

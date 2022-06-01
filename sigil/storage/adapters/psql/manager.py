@@ -14,22 +14,23 @@ logger = logging.getLogger(__name__)
 
 
 class StorageManager(BaseManager):
-    def __init__(self, session):
-        self.session = session
+    _storage_classes = {
+        "campaign_storage": CampaignStorage,
+        "hub_storage": HubStorage,
+        "party_storage": PartyStorage,
+        "player_character_storage": PlayerCharacterStorage,
+    }
 
-        self._storage_classes = {
-            "campaign_storage": CampaignStorage,
-            "hub_storage": HubStorage,
-            "party_storage": PartyStorage,
-            "player_character_storage": PlayerCharacterStorage,
-        }
+    def __init__(self, session):
+        super().__init__()
+        self.session = session
 
     def _init_storage(self, StorageClass):
         return StorageClass(self.session)
 
     @classmethod
     @asynccontextmanager
-    async def start(cls):
+    async def load(cls):
         async with async_session() as session:
             async with session.begin():
                 try:
