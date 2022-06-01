@@ -1,21 +1,7 @@
 import pytest
 
-from sigil.storage.adapters.psql.storages import (
-    CampaignStorage,
-    HubStorage,
-    PartyStorage,
-    PlayerCharacterStorage,
-)
+from sigil.storage.adapters.psql.manager import StorageManager
 from sigil.storage.adapters.psql.test_utils import psql_session
-
-
-@pytest.fixture
-async def db_session(request):
-    if request.config.getoption("--use-database"):
-        async with psql_session() as session:
-            yield session
-    else:
-        yield None
 
 
 @pytest.fixture
@@ -24,27 +10,33 @@ def adapter(request):
 
 
 @pytest.fixture
-def campaign_storage(adapter, db_session):
+async def storages(adapter):
     if adapter == "psql":
-        return CampaignStorage(db_session)
+        async with psql_session() as session:
+            yield StorageManager(session)
+        return
+
+    raise Exception(f"no storage manager for {adapter} adapter")
 
 
 @pytest.fixture
-def player_character_storage(adapter, db_session):
-    if adapter == "psql":
-        return PlayerCharacterStorage(db_session)
+def campaign_storage(storages):
+    return storages.campaign_storage
 
 
 @pytest.fixture
-def party_storage(adapter, db_session):
-    if adapter == "psql":
-        return PartyStorage(db_session)
+def player_character_storage(storages):
+    return storages.player_character_storage
 
 
 @pytest.fixture
-def hub_storage(adapter, db_session):
-    if adapter == "psql":
-        return HubStorage(db_session)
+def party_storage(storages):
+    return storages.party_storage
+
+
+@pytest.fixture
+def hub_storage(storages):
+    return storages.hub_storage
 
 
 @pytest.fixture
