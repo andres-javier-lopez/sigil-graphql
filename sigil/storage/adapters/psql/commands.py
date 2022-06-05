@@ -1,17 +1,10 @@
-from functools import wraps
 from os import path
 
 from alembic import command
 from alembic.config import Config
 
-from sigil.storage.adapters.psql import async_session, engine
+from sigil.storage.adapters.psql import engine
 from sigil.storage.adapters.psql.models.base import Base
-from sigil.storage.adapters.psql.storages import (
-    CampaignStorage,
-    HubStorage,
-    PartyStorage,
-    PlayerCharacterStorage,
-)
 
 dirname = path.dirname(__file__)
 alembic_ini = path.join(dirname, "alembic.ini")
@@ -40,24 +33,3 @@ async def upgrade_storage():
     async with engine.begin() as conn:
         alembic_cfg = Config(alembic_ini)
         await conn.run_sync(_run_upgrade, alembic_cfg)
-
-
-def include_storages(func):
-    """Decorator that provides the storages to be seeded"""
-
-    @wraps(func)
-    async def _include_storages(*args, **kwargs):
-        async with async_session() as session:
-            async with session.begin():
-                storages = {
-                    CampaignStorage.__name__: CampaignStorage(session),
-                    PlayerCharacterStorage.__name__: PlayerCharacterStorage(session),
-                    PartyStorage.__name__: PartyStorage(session),
-                    HubStorage.__name__: HubStorage(session),
-                }
-                await func(*args, **kwargs, storages=storages)
-
-                await session.commit()
-        await engine.dispose()
-
-    return _include_storages

@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from sigil.domain.entities import Campaign, Hub
-from sigil.storage.interfaces import HubStorage
+from sigil.storage.manager import HubStorage
 
 
 class HubManager:

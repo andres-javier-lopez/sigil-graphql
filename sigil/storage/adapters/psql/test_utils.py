@@ -32,5 +32,4 @@ async def psql_session():
     try:
         yield session
     finally:
-        await session.rollback()
         await session.close()
